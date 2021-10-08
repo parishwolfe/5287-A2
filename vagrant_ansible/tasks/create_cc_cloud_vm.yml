@@ -1,0 +1,48 @@
+# LINKS FOR REFERENCE
+# https://docs.ansible.com/ansible/latest/collections/openstack/cloud/server_module.html
+# with AWS https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_module.html
+
+#- name: launch a compute instance
+#  hosts: MyLocalVMs          # specified in the MyInventory file
+#  tasks:
+#    - name: launch an instance
+#      openstack.cloud.server:
+#           state: present
+#           auth_type: v3oidcpassword
+#           auth:
+#            auth_url: https://kvm.tacc.chameleoncloud.org:5000
+#            username: "XXXX"
+#            password: "XXXX"
+#            access_token_type: access_token
+#            project_name: "CH-822922"
+#           name: team9-alexandra-vagrant
+#           region_name: "KVM@TACC"
+#           availability_zone: nova
+#           image: 2067e3e4-057b-4fb9-a7f9-e8688cd5012b
+#           key_name: Team9
+#           timeout: 200
+#           flavor: m1.small
+#           security_groups: default
+#           auto_ip: yes
+
+- name: launch a compute instance
+  hosts: localhost
+  tasks:
+    - name: launch an instance
+      openstack.cloud.server:
+        state: present
+        auth:
+          auth_url: https://kvm.tacc.chameleoncloud.org:5000
+          username: XXXX
+          password: XXXX
+          project_name: CH-822922
+        name: vm1
+        region_name: KVM@TACC
+        availability_zone: nova
+        image: 01a6d6d1-e692-4e86-b776-dbb387c64958
+        key_name: Team9
+        timeout: 200
+        flavor_ram: 2048
+        security_groups: default
+        auto_ip: yes
+
