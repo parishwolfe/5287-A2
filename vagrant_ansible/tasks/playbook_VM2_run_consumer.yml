@@ -1,0 +1,4 @@
+#- hosts: VM2
+#  become: true
+- name: Execute consumer code
+  script: ~/5287-A2/code_files/consumer.py

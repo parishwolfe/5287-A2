@@ -1,0 +1,84 @@
+- name: Install OpenJDK JRE
+    apt:
+      name: default-jre
+      state: present
+
+- name: Clone github to get access to files
+    git:
+      repo: https://github.com/parishwolfe/5287-A2.git
+      dest: ~/5287-A2
+      clone: yes
+      update: yes
+
+- name: Create kafka user in sudo group
+    become: yes
+    user:
+      name: kafka
+      groups:
+        - sudo
+      append: yes
+
+- name: Create directory for kafka user
+    become_user: kafka
+    become: yes
+    file:
+      path: /home/kafka/Downloads
+      state: directory
+
+- name: Download kafka
+    become_user: kafka
+    become: yes
+    get_url:
+      url: https://downloads.apache.org/kafka/2.6.2/kafka_2.13-2.6.2.tgz
+      dest: /home/kafka/Downloads/kafka.tgz
+
+- name: Create /home/kafka/kafka directory
+    become_user: kafka
+    become: yes
+    file:
+      path: /home/kafka/kafka
+      state: directory
+
+- name: Install kafka
+    become_user: kafka
+    become: yes
+    unarchive:
+      src: /home/kafka/Downloads/kafka.tgz
+      dest: /home/kafka/kafka/
+      extra_opts: [--strip-components=1]
+
+- name: Edit firewall rules
+    become: yes
+    ufw:
+      rule: allow
+      port: "{{ item }}"
+    loop:
+    - "2181"
+    - "4369"
+    - "5984"
+    - "9092"
+
+- name: Copy over zookeeper.service and kafka.service files
+    become: yes
+    copy:
+      src: "~/vagrant_ansible/kafka_files/{{ item }}"
+      dest: "/etc/systemd/system/{{ item }}"
+      owner: kafka
+    loop:
+    - "zookeeper.service"
+    - "kafka.service"
+
+- name: Start kafka and zookeeper
+    become: yes
+    systemd:
+      name: "{{ item }}"
+      enabled: yes
+      state: started
+    loop:
+    - kafka
+    - zookeeper
+
+- name: Install python requirements
+  pip:
+    requirements: ~/code_files/requirements.txt
+

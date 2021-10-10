@@ -1,0 +1,10 @@
+- name: "Master Playbook 2: set-up VM2 amd VM3"
+  hosts: bothvms          # specified in the MyInventory file
+  remote_user:  cc      # note that the user is ubuntu for
+                             # vagrant-created VM else use the
+                             # appropriate user name
+  become: true
+
+  tasks:    # the task to be performed (here I am showing the effect of include_)
+  #- include_tasks: tasks/playbook_exec_app_on_cloud_vm.yaml
+  - include_tasks: tasks/playbook_setup_both_cloud_vms.yml
