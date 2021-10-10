@@ -13,5 +13,13 @@
   - name: "Print results"
     debug:  # Notice how variables are accessed (shown below)
         msg: "{{ result.openstack_servers }}"
-... 
+
+  - name: add to inventory
+    add_host:
+      name: "{{ result.openstack_servers.0.interface_ip }}"
+      groups:
+        - bothvms
+        - vm1
+      ansible_connection: ssh
+      ansible_ssh_private_key_file: ~/.ssh/Team9.pem
 

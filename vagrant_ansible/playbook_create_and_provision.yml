@@ -29,10 +29,20 @@
   tasks:    # the task to be performed (here I am showing the effect of include_)
   #- include_tasks: tasks/create_cc_cloud_vm.yml
   - include_tasks: tasks/get_facts_cloud_vm.yml
-  #TODO parse get facts to retrieve IP to provision
+  #TODO parse get facts to retrieve IP to provision then add to inventory 
   #TODO connect to IP and provision instance1, instance2
 
+- name: execute top
+  hosts: bothvms
+  remote_user: cc
+  tasks:
+  - name: Execute a command on remote cloud VM
+    command: top -n 1 -b  # say we execute our famous command from assignment #1
+    register: output
 
+  - name: Print the output
+    debug:
+      msg: "{{ output }}"
 
 
   # Default stuff
