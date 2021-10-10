@@ -16,21 +16,13 @@
 #
 # Here I show the use of import_tasks from child playbooks
 #####################################################
-- name: "Play 1: Perform fact gathering on all VMs"
-  hosts: localhost          # specified in the MyInventory file
+- name: "Create VMs and write to dynamic inventory"
+  hosts: localhost
   connection: local
-  remote_user:  cc      # note that the user is ubuntu for 
-                             # vagrant-created VM else use the
-                             # appropriate user name
-
-  gather_facts: yes          # We ask Ansible to collect all facts
-  become_user: no            # No need for sudo as we are not installing anything
-
-  tasks:    # the task to be performed (here I am showing the effect of include_)
-  #- include_tasks: tasks/create_cc_cloud_vm.yml
-  - include_tasks: tasks/get_facts_cloud_vm.yml
-  #TODO parse get facts to retrieve IP to provision then add to inventory 
-  #TODO connect to IP and provision instance1, instance2
+  gather_facts: yes
+  tasks:
+    - include_tasks: tasks/create_cc_cloud_vm.yml
+    - include_tasks: tasks/get_facts_cloud_vm.yml
 
 - name: execute top
   hosts: bothvms
@@ -45,10 +37,5 @@
       msg: "{{ output }}"
 
 
-  # Default stuff
-  #- include_tasks: tasks/playbook_get_facts_cloud_vm.yml
-
-  #- include_tasks: tasks/playbook_get_facts_cloud_vm.yml
-  #- include_tasks: tasks/playbook_get_facts_local_vm.yml
 ...
 

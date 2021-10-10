@@ -5,7 +5,7 @@
 - name: launch a compute instance
   openstack.cloud.server:
     state: present
-    name: vm1Team9
+    name: "{{ item }}"
     region_name: KVM@TACC
     availability_zone: nova
     image: 01a6d6d1-e692-4e86-b776-dbb387c64958
@@ -15,4 +15,7 @@
     security_groups: default
     auto_ip: yes
     network: "CH-822922-net"
+  loop:
+    - vm2Team9
+    - vm3Team9
 
