@@ -17,7 +17,8 @@
 # Here I show the use of import_tasks from child playbooks
 #####################################################
 - name: "Play 1: Perform fact gathering on all VMs"
-  hosts: MyChameleonVMs          # specified in the MyInventory file
+  hosts: localhost          # specified in the MyInventory file
+  connection: local
   remote_user:  cc      # note that the user is ubuntu for 
                              # vagrant-created VM else use the
                              # appropriate user name
@@ -26,7 +27,8 @@
   become_user: no            # No need for sudo as we are not installing anything
 
   tasks:    # the task to be performed (here I am showing the effect of include_)
-  - include_tasks: tasks/playbook_exec_app_on_cloud_vm.yaml
+  #- include_tasks: tasks/playbook_exec_app_on_cloud_vm.yaml
+  - include_tasks: tasks/create_cc_cloud_vm.yml
 #  - include_tasks: tasks/playbook_get_facts_cloud_vm.yml
 
   #- include_tasks: tasks/playbook_get_facts_cloud_vm.yml
