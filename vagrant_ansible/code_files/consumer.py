@@ -57,7 +57,7 @@ for msg in consumer:
     # Desteralize data and print message
     msg = json.loads(str(msg.value, "ascii"))
     # Save JSON document to CouchDB
-    file1.write(msg)
+    # file1.write(msg)
     print(msg)
     # db.save(msg)
 
