@@ -28,6 +28,11 @@
   hosts: bothvms
   remote_user: cc
   tasks:
+  - name: wait for 45 seconds
+    wait_for:
+      timeout: 45
+    delegate_to: localhost
+    
   - name: Execute a command on remote cloud VM
     command: top -n 1 -b  # say we execute our famous command from assignment #1
     register: output
