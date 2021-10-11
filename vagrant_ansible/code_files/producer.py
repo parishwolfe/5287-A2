@@ -81,6 +81,7 @@ def main():
             print(message)
             # steralize data
             message = bytes(json.dumps(message), 'ascii')
+            print("help0");
             producer.send(topic=topic_, value=message)
             print("help");
             producer.flush()  # try to empty the sending buffer
