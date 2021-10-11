@@ -81,11 +81,8 @@ def main():
             print(message)
             # steralize data
             message = bytes(json.dumps(message), 'ascii')
-            print("help0");
             producer.send(topic=topic_, value=message)
-            print("help");
             producer.flush()  # try to empty the sending buffer
-            print("help2");
             # sleep a second
             time.sleep(5)  # changed to 5 seconds for api limit
         else:
