@@ -51,7 +51,8 @@ def weather_request(city: str, api_key: str):
 
 def main():
     # acquire the producer
-    producer = KafkaProducer(bootstrap_servers=config.kafka_servers, api_version=(2,13,0),
+    # api_version=(2,13,0)
+    producer = KafkaProducer(bootstrap_servers=config.kafka_servers, api_version=(0,10,2),
     acks=1)
 
     # wait for leader to write to log

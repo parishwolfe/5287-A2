@@ -24,7 +24,7 @@ import couchdb
 
 # acquire the consumer
 # (you will need to change this to your bootstrap server's IP addr)
-consumer = KafkaConsumer (bootstrap_servers=config.kafka_servers, api_version=(2,13,0))
+consumer = KafkaConsumer (bootstrap_servers=config.kafka_servers, api_version=(0,10,2))
 
 # subscribe to topic
 consumer.subscribe(topics=["ny", "chi"])
