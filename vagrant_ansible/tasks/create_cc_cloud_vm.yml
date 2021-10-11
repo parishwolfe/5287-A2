@@ -12,7 +12,11 @@
     key_name: Team9
     timeout: 200
     flavor_ram: 2048
-    security_groups: default
+    security_groups:
+      - "default"
+      - "HTTP_HTTPS_INGRESS_EGRESS"
+      - "SHARED-CLOUDCOMPUTING"
+      - "SHARED_SSH_INGRESS"
     auto_ip: yes
     network: "CH-822922-net"
   loop:
