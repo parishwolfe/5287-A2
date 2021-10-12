@@ -5,6 +5,8 @@
 
 - name: Run Py script
   command: /usr/bin/python3 /home/cc/5287-A2/vagrant_ansible/code_files/consumer.py
+  async: 300
+  poll: 0
 
 #- name: Copy over consumer.service file
 #  become: yes
