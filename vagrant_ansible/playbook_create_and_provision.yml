@@ -44,27 +44,27 @@
 #     debug:
 #       msg: "{{ output }}"
 
-# - name: "Master Playbook 2: set-up VM2 amd VM3"
-#   hosts: bothvms
-#   remote_user:  cc
-#   tasks:
-#   - include_tasks: tasks/playbook_setup_both_cloud_vms.yml
+ - name: "Master Playbook 2: set-up VM2 amd VM3"
+   hosts: bothvms
+   remote_user:  cc
+   tasks:
+   - include_tasks: tasks/playbook_setup_both_cloud_vms.yml
 
 
-# #host: vm3
-# - name: "Master Playbook 3: VM3"
-#   hosts: vm3
-#   remote_user:  cc
-#   become: true
-#   tasks:
-#   - include_tasks: tasks/playbook_VM3.yml
+ #host: vm3
+ - name: "Master Playbook 3: VM3"
+   hosts: vm3
+   remote_user:  cc
+   become: true
+   tasks:
+   - include_tasks: tasks/playbook_VM3.yml
 
-- name: "run consumer"
-  hosts: vm2
-  remote_user: cc
-  become: true
-  tasks:
-    - include_tasks: tasks/playbook_VM2_run_consumer.yml
+#- name: "run consumer"
+#  hosts: vm2
+#  remote_user: cc
+#  become: true
+#  tasks:
+#    - include_tasks: tasks/playbook_VM2_run_consumer.yml
 
 
 ...
