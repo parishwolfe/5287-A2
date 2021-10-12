@@ -16,15 +16,15 @@
 #
 # Here I show the use of import_tasks from child playbooks
 #####################################################
-- name: "Create VMs and write to dynamic inventory"
-  hosts: localhost
-  connection: local
-  gather_facts: yes
-#  collections: # this is new starting with Ansible 2.9 (akin to importing package)
-#    - openstack.cloud
-  tasks:
-    #- include_tasks: tasks/create_cc_cloud_vm.yml
-    - include_tasks: tasks/get_facts_cloud_vm.yml
+#- name: "Create VMs and write to dynamic inventory"
+#  hosts: localhost
+#  connection: local
+#  gather_facts: yes
+##  collections: # this is new starting with Ansible 2.9 (akin to importing package)
+##    - openstack.cloud
+#  tasks:
+#    #- include_tasks: tasks/create_cc_cloud_vm.yml
+#    - include_tasks: tasks/get_facts_cloud_vm.yml
 
 # - name: wait for spin up
 #   hosts: localhost
@@ -34,12 +34,12 @@
 #         timeout: 45
 #       delegate_to: localhost
 
-- name: "set up localhost"
-  hosts: localhost
-  connection: local
-  gather_facts: yes
-  tasks:
-    - include_tasks: tasks/playbook_set_up_local_vm.yml
+#- name: "set up localhost"
+#  hosts: localhost
+#  connection: local
+#  gather_facts: yes
+#  tasks:
+#    - include_tasks: tasks/playbook_set_up_local_vm.yml
 
 # - name: execute top
 #   hosts: bothvms
@@ -68,12 +68,12 @@
 #   tasks:
 #   - include_tasks: tasks/playbook_VM3.yml
 
-#- name: "run consumer"
-#  hosts: vm2
-#  remote_user: cc
-#  become: true
-#  tasks:
-#    - include_tasks: tasks/playbook_VM2_run_consumer.yml
+- name: "run consumer"
+  hosts: vm2
+  remote_user: cc
+  become: true
+  tasks:
+    - include_tasks: tasks/playbook_VM2_run_consumer.yml
 
 
 ...

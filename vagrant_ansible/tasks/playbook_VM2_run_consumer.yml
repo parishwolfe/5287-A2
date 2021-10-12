@@ -1,20 +1,20 @@
-#- name: Run script
-#  become: yes
-#  shell: /usr/bin/python consumer.py
+- name: Run script
+  become: yes
+  script: /home/cc/5287-A2/vagrant_ansible/code_files/consumer.py
 #  args:
 #    chdir: "/home/cc/5287-A2/vagrant_ansible/code_files"
 
-- name: Copy over consumer.service file
-  become: yes
-  copy:
-    src: /home/cc/5287-A2/vagrant_ansible/kafka_files/consumer.service
-    remote_src: yes
-    dest: /etc/systemd/system/consumer.service
-
-- name: Start consumer
-  become: yes
-  systemd:
-    name: consumer.service
-    enabled: yes
-    state: started
+#- name: Copy over consumer.service file
+#  become: yes
+#  copy:
+#    src: /home/cc/5287-A2/vagrant_ansible/kafka_files/consumer.service
+#    remote_src: yes
+#    dest: /etc/systemd/system/consumer.service
+#
+#- name: Start consumer
+#  become: yes
+#  systemd:
+#    name: consumer.service
+#    enabled: yes
+#    state: started
 
