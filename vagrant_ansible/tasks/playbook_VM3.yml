@@ -1,18 +1,14 @@
 #host: vm3
 - name: Update zookeeper.connect on VM2 server.properties
-    lineinfile:
-      path: /home/kafka/kafka/config/server.properties
-      regexp: 'zookeeper.connect=.*'
-      line: zookeeper.connect=hostvars[VM2]['ansible_default_ipv4']['address']
-
-- name: Update advertised.listeners on VM2 server.properties
-    lineinfile:
-      path: /home/kafka/kafka/config/server.properties
-      regexp: 'advertised.listeners=.*'
-      line: advertised.listeners=PLAINTEXT://[VM2]['ansible_default_ipv4']['address']
+  lineinfile:
+    path: /home/kafka/kafka/config/server.properties
+    regexp: 'zookeeper.connect=.*'
+    line: zookeeper.connect=129.114.26.191:2181
+#    line: zookeeper.connect=hostvars[vm2]['ansible_default_ipv4']['address']
 
 - name: Update broker.id on VM2 server.properties
-    lineinfile:
-      path: /home/kafka/kafka/config/server.properties
-      regexp: 'broker.id=.*'
-      line: broker.id = 1
+  lineinfile:
+    path: /home/kafka/kafka/config/server.properties
+    regexp: 'broker.id=.*'
+    line: broker.id = 1
+

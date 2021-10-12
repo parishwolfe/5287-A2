@@ -1,6 +1,6 @@
 #host: vm3
 - name: "Master Playbook 3: VM3"
-  hosts: Vm3          # specified in the MyInventory file
+  hosts: vm3          # specified in the MyInventory file
   remote_user:  cc      # note that the user is ubuntu for
                              # vagrant-created VM else use the
                              # appropriate user name
