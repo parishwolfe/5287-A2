@@ -1,8 +1,10 @@
-- name: Run script
-  become: yes
-  script: /home/cc/5287-A2/vagrant_ansible/code_files/consumer.py
-#  args:
-#    chdir: "/home/cc/5287-A2/vagrant_ansible/code_files"
+#- name: Run script
+#  script: /usr/bin/python3 consumer.py
+##  args:
+##    chdir: "/home/cc/5287-A2/vagrant_ansible/code_files"
+
+- name: Run Py script
+  command: /usr/bin/python3 /home/cc/5287-A2/vagrant_ansible/code_files/consumer.py
 
 #- name: Copy over consumer.service file
 #  become: yes

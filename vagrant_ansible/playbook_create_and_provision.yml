@@ -44,7 +44,7 @@
 # - name: execute top
 #   hosts: bothvms
 #   remote_user: cc
-#   tasks:    
+#   tasks:
 #   - name: Execute a command on remote cloud VM
 #     command: top -n 1 -b  # say we execute our famous command from assignment #1
 #     register: output
@@ -71,7 +71,6 @@
 - name: "run consumer"
   hosts: vm2
   remote_user: cc
-  become: true
   tasks:
     - include_tasks: tasks/playbook_VM2_run_consumer.yml
 

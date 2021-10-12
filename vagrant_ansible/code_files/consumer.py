@@ -45,25 +45,25 @@ couchdb_database = 'cloud_class'
     # db = couch_db.create(couchdb_database)  # newly created
 # except:
     # db = couch_db[couchdb_database]  # existing
-# file1 = open('output.txt', 'w')
-#timeout = time.time() + 60*1
+file1 = open('output.txt', 'w')
+timeout = time.time() + 60*1
 
 # we keep reading, printing and saving JSON file to CouchDB
 for msg in consumer:
-    # test = 0
-    # if test == 5 or time.time() > timeout:
-    #     break
-    # test = test - 1
+    test = 0
+    if test == 5 or time.time() > timeout:
+        break
+    test = test - 1
     # Desteralize data and print message
     msg = json.loads(str(msg.value, "ascii"))
     # Save JSON document to CouchDB
-    # file1.write(msg)
+    file1.write(msg)
     print(msg)
     #db.save(msg)
 
 # we are done. As such, we are not going to get here as the above loop
 # is a forever loop.
-# file1.close()
+file1.close()
 consumer.close ()
     
 
