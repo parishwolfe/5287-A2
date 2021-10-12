@@ -1,9 +1,11 @@
 [Unit]
 Description=Run consumer Code
 After=multi-user.target
+
 [Service]
 Type=simple
 Restart=always
 ExecStart=/usr/bin/python3 /home/cc/5287-A2/vagrant_ansible/code_files/consumer.py
+
 [Install]
 WantedBy=multi-user.target
