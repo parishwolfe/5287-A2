@@ -18,11 +18,17 @@ Parish edited the Vagrant files, and then we both met over Zoom to test and get 
 
 # Milestone 2 
 
-With the command vagrant up a vagrant VM is created, and then a [master playbook](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_create_and_provision.yml) is called that subsequently calls a number of other playbooks. I will details these playbooks below. The master playbook is called with vagrant provision. 
+With the command vagrant up a vagrant VM is created, and then a [master playbook](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_create_and_provision.yml) is called that subsequently calls a number of other playbooks. 
 
-We created a playbook that spins out two Cloud virtual machines (VM2, VM3). This playbook can be found [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/create_cc_cloud_vm.yml). We had to find a specific type of clouds.yaml file as the one we had used before was not in the correct format for use here.  
+The Master playbook
+* Creates and configures VM2 and VM3
+* Starts ZooKeeper on VM2 
+* Starts Apache Kafka brokers on both VM2 and VM3
+* Starts Consumer on VM2 by running an async task
 
-We then created a playbooks that configure these virtual machines. The playbook to configure both machines is [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml), and the playbook for VM3 specific configuration is [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml). 
+The playbook that spins out two Cloud virtual machines (VM2, VM3) can be found [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/create_cc_cloud_vm.yml). We had to find a specific type of clouds.yaml file as the one we had used before was not in the correct format for use here.  
+
+The playbook to configure both machines is [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml), and the playbook for VM3's specific configuration is [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml). 
 
 ## Configuration details:
 
@@ -31,6 +37,7 @@ VM2:
 * Broker_id = 0
 * Zookeeper
 * Cloned github repo
+* Runs Consumer.py
 
 VM3:
 * Kafka
@@ -45,7 +52,7 @@ Using playbooks we also made sure all the needed packages were installed on VM2 
 
 ## Demo: 
 
-A demo can be found here. This shows VM2 and VM3 being created by vagrant up, and it shows the consumer and producer code working on the correct machines. 
+A demo can be found here. This demo runs master playbook that creates and configures VM2 and VM3, and then runns consumer.py. After the master playbook is finished running I run the producer code from VM1.1 (the vagrant created machine) and the new data is found in CouchDB, showing the consumer recieved the data.  
 
 
 
