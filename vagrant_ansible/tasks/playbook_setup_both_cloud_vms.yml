@@ -60,6 +60,12 @@
     dest: /home/kafka/kafka/
     extra_opts: [--strip-components=1]
 
+- name: Enable UFW
+  become: yes
+  community.general.ufw:
+    state: enabled
+
+
 - name: Edit firewall rules
   become: yes
   ufw:
