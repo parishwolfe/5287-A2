@@ -73,6 +73,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     pip install openstacksdk
     ansible-galaxy collection install openstack.cloud
+    ansible-galaxy collection install community.general
   SHELL
   
   #

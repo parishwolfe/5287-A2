@@ -12,7 +12,7 @@
     update_cache: yes
     state: present
   loop:
-  - python-pip
+  - python3-pip
   - default-jre
 
 - name: Clone github to get access to files
@@ -60,10 +60,10 @@
     dest: /home/kafka/kafka/
     extra_opts: [--strip-components=1]
 
-- name: Enable UFW
-  become: yes
-  community.general.ufw:
-    state: enabled
+# - name: Enable UFW
+#   become: yes
+#   community.general.ufw:
+#     state: enabled
 
 
 - name: Edit firewall rules

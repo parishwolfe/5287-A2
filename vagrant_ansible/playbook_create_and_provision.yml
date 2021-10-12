@@ -21,18 +21,21 @@
   connection: local
   gather_facts: yes
   tasks:
-    - include_tasks: tasks/create_cc_cloud_vm.yml
+    #- include_tasks: tasks/create_cc_cloud_vm.yml
     - include_tasks: tasks/get_facts_cloud_vm.yml
+
+- name: wait for spin up
+  hosts: localhost
+  tasks:
+    - name: wait for 45 seconds
+      wait_for:
+        timeout: 45
+      delegate_to: localhost
 
 - name: execute top
   hosts: bothvms
   remote_user: cc
-  tasks:
-  - name: wait for 45 seconds
-    wait_for:
-      timeout: 45
-    delegate_to: localhost
-    
+  tasks:    
   - name: Execute a command on remote cloud VM
     command: top -n 1 -b  # say we execute our famous command from assignment #1
     register: output
@@ -41,6 +44,15 @@
     debug:
       msg: "{{ output }}"
 
+- name: "Master Playbook 2: set-up VM2 amd VM3"
+  hosts: bothvms          # specified in the MyInventory file
+  remote_user:  cc      # note that the user is ubuntu for
+                             # vagrant-created VM else use the
+                             # appropriate user name
+  #gather_facts: yes
+  tasks:    # the task to be performed (here I am showing the effect of include_)
+#  - include_tasks: tasks/playbook_remove_app_from_cloud_vm.yaml
+  - include_tasks: tasks/playbook_setup_both_cloud_vms.yml
 
 ...
 
