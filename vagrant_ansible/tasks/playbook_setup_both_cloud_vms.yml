@@ -15,12 +15,12 @@
   - python3-pip
   - default-jre
 
-- name: Clone github to get access to files
-  git:
-    repo: https://github.com/parishwolfe/5287-A2.git
-    dest: /home/cc/5287-A2
-    clone: yes
-    update: yes
+#- name: Clone github to get access to files
+#  git:
+#    repo: https://github.com/parishwolfe/5287-A2.git
+#    dest: /home/cc/5287-A2
+#    clone: yes
+#    update: yes
 
 - name: Create kafka user
   become: yes
@@ -117,13 +117,13 @@
   lineinfile:
     path: /home/kafka/kafka/config/server.properties
     regexp: 'advertised.listeners=.*'
-    line: advertised.listeners=PLAINTEXT://129.114.26.191:9092
-#    line: advertised.listeners=PLAINTEXT://hostvars[vm2]['ansible_default_ipv4']['address']
+#    line: advertised.listeners=PLAINTEXT://129.114.26.191:9092
+    line: advertised.listeners=PLAINTEXT://hostvars[vm2]['ansible_default_ipv4']['address']:9092
 - name: Update listeners in server.properties
   become: yes
   lineinfile:
     path: /home/kafka/kafka/config/server.properties
     regexp: 'listeners=PLAINTEXT://:9092'
-    line: listeners=PLAINTEXT://129.114.26.191:9092
-#    line: advertised.listeners=PLAINTEXT://hostvars[vm2]['ansible_default_ipv4']['address']
+#    line: listeners=PLAINTEXT://129.114.26.191:9092
+    line: advertised.listeners=PLAINTEXT://hostvars[vm2]['ansible_default_ipv4']['address']:9092
 

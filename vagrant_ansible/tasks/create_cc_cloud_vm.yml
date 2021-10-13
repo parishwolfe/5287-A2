@@ -20,6 +20,6 @@
     auto_ip: yes
     network: "CH-822922-net"
   loop:
-    - vm2Team9
-    - vm3Team9
+    - vm2Team9-1
+    - vm3Team9-1
 

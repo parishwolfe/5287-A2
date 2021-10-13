@@ -3,12 +3,11 @@
   lineinfile:
     path: /home/kafka/kafka/config/server.properties
     regexp: 'zookeeper.connect=.*'
-    line: zookeeper.connect=129.114.26.191:2181
-#    line: zookeeper.connect=hostvars[vm2]['ansible_default_ipv4']['address']
+#    line: zookeeper.connect=129.114.26.191:2181
+    line: zookeeper.connect=hostvars[vm2]['ansible_default_ipv4']['address']:2198
 
 - name: Update broker.id on VM2 server.properties
   lineinfile:
     path: /home/kafka/kafka/config/server.properties
     regexp: 'broker.id=.*'
     line: broker.id = 1
-
