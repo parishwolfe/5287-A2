@@ -1,26 +1,26 @@
-- name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 86400
+#- name: Update and upgrade apt packages
+#  become: yes
+#  apt:
+#    upgrade: yes
+#    update_cache: yes
+#    cache_valid_time: 86400
+#
+#- name: Install pip and JDK
+#  become: yes
+#  apt:
+#    name: "{{ item }}"
+#    update_cache: yes
+#    state: present
+#  loop:
+#  - python3-pip
+#  - default-jre
 
-- name: Install pip and JDK
-  become: yes
-  apt:
-    name: "{{ item }}"
-    update_cache: yes
-    state: present
-  loop:
-  - python3-pip
-  - default-jre
-
-- name: Clone github to get access to files
-  git:
-    repo: https://github.com/parishwolfe/5287-A2.git
-    dest: /home/cc/5287-A2
-    clone: yes
-    update: yes
+#- name: Clone github to get access to files
+#  git:
+#    repo: https://github.com/parishwolfe/5287-A2.git
+#    dest: /home/cc/5287-A2
+#    clone: yes
+#    update: yes
 
 - name: Create kafka user
   become: yes
@@ -76,6 +76,7 @@
   - "4369"
   - "5984"
   - "9092"
+  - "22"
 
 - name: Copy over zookeeper.service and kafka.service files
   become: yes
