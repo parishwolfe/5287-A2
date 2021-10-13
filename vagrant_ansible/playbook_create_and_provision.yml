@@ -24,7 +24,7 @@
 #    - openstack.cloud
   tasks:
     - include_tasks: tasks/create_cc_cloud_vm.yml
-    - include_tasks: tasks/get_facts_cloud_vm.yml
+#    - include_tasks: tasks/get_facts_cloud_vm.yml
 
 - name: wait for spin up
   hosts: localhost
@@ -33,25 +33,25 @@
     wait_for:
       timeout: 45
     delegate_to: localhost
-
+#
 - name: "set up localhost"
   hosts: localhost
   connection: local
   gather_facts: yes
   tasks:
     - include_tasks: tasks/playbook_set_up_local_vm.yml
-
-# - name: execute top
-#   hosts: bothvms
-#   remote_user: cc
-#   tasks:
-#   - name: Execute a command on remote cloud VM
-#     command: top -n 1 -b  # say we execute our famous command from assignment #1
-#     register: output
-
-#   - name: Print the output
-#     debug:
-#       msg: "{{ output }}"
+#
+## - name: execute top
+##   hosts: bothvms
+##   remote_user: cc
+##   tasks:
+##   - name: Execute a command on remote cloud VM
+##     command: top -n 1 -b  # say we execute our famous command from assignment #1
+##     register: output
+#
+##   - name: Print the output
+##     debug:
+##       msg: "{{ output }}"
 
 - name: "Master Playbook 2: set-up VM2 amd VM3"
   hosts: bothvms
@@ -68,11 +68,11 @@
   tasks:
   - include_tasks: tasks/playbook_VM3.yml
 
-#- name: "run consumer"
-#  hosts: vm2
-#  remote_user: cc
-#  tasks:
-#    - include_tasks: tasks/playbook_VM2_run_consumer.yml
+- name: "run consumer"
+  hosts: vm2
+  remote_user: cc
+  tasks:
+    - include_tasks: tasks/playbook_VM2_run_consumer.yml
 
 ...
 

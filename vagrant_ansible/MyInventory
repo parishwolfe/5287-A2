@@ -66,11 +66,11 @@
 # and so on.
 
 [bothvms]
-129.114.26.191 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem
-129.114.26.103 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem
+129.114.27.160 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem
+129.114.27.189 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem
 
 [vm3]
-129.114.26.103 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem
+129.114.27.189 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem
 
 [vm2]
-129.114.26.191 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem
+129.114.27.160 ansible_connection=ssh ansible_ssh_private_key_file=~/.ssh/Team9.pem

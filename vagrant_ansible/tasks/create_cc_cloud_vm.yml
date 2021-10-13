@@ -5,7 +5,7 @@
 - name: launch a compute instance
   openstack.cloud.server:
     state: present
-    name: "{{ item }}"
+    name: vm2Team9-3
     region_name: KVM@TACC
     availability_zone: nova
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
@@ -17,9 +17,25 @@
       - "HTTP_HTTPS_INGRESS_EGRESS"
       - "SHARED-CLOUDCOMPUTING"
       - "SHARED_SSH_INGRESS"
-    auto_ip: yes
+    floating_ips:
+      - 129.114.27.160
     network: "CH-822922-net"
-  loop:
-    - vm2Team9-1
-    - vm3Team9-1
 
+- name: launch a compute instance
+  openstack.cloud.server:
+    state: present
+    name: vm3Team9-3
+    region_name: KVM@TACC
+    availability_zone: nova
+    image: cc7a1d9a-7501-4935-b171-bb881a7d767d
+    key_name: Team9
+    timeout: 200
+    flavor_ram: 2048
+    security_groups:
+      - "default"
+      - "HTTP_HTTPS_INGRESS_EGRESS"
+      - "SHARED-CLOUDCOMPUTING"
+      - "SHARED_SSH_INGRESS"
+    floating_ips:
+      - 129.114.27.189
+    network: "CH-822922-net"
