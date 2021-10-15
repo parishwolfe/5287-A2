@@ -11,3 +11,16 @@
     path: /home/kafka/kafka/config/server.properties
     regexp: 'broker.id=.*'
     line: broker.id = 1
+
+- name: Install couchdb
+  become: yes
+  apt:
+    pkg:
+      - curl
+      - apt-transport-https
+      - gnupg
+  state: present
+  update_cache: yes
+
+- name: run couchdb shell script
+  become: yes
