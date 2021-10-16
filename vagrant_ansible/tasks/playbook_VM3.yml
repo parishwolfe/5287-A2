@@ -22,11 +22,11 @@
     state: present
     update_cache: yes
 
-- name: make script executable
+- name: make couch pre-install script executable
   become: yes
   ansible.builtin.shell: chmod +x /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
 
-- name: run script
+- name: run couch pre-install script
   become: yes
   ansible.builtin.shell: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
 
@@ -38,11 +38,47 @@
     update_cache: yes
     state: present
 
+- name: copy configuration files 1/3
+  become: yes
+  copy: 
+    src: /home/cc/5287-A2/vagrant_ansible/couchdb_files/10-admins.ini
+    remote_src: yes
+    dest: /opt/couchdb/etc/local.d/10-admins.ini
+    owner: cc
+  
+- name: copy configuration files 2/3
+  become: yes
+  copy: 
+    src: /home/cc/5287-A2/vagrant_ansible/couchdb_files/10-bind-address.ini
+    remote_src: yes
+    dest: /opt/couchdb/etc/default.d/10-bind-address.ini
+    owner: cc
+
+- name: copy configuration files 3/3
+  become: yes
+  copy:
+    src: /home/cc/5287-A2/vagrant_ansible/couchdb_files/5-single-node.ini
+    remote_src: yes
+    dest: /opt/couchdb/etc/default.d/5-single-node.ini
+    owner: cc
+
+- name: start couchdb
+  become: yes
+  ansible.builtin.systemd:
+    state: started
+    name: couchdb
+    enabled: yes
+
+- name: configure database
+  ansible.builtin.shell: curl -X PUT http://admin:welcome@127.0.0.1:5984/cloud_class
+
+## Not working - 401 unauthorized result
+# - name: configure cdb
+#   uri:
+#     url: http://127.0.0.1:5984/cloud_class
+#     method: PUT
+#     user: admin
+#     password: welcome
+#     status_code: [200, 202]
 
 
-
-
-# if silent install, all is needed to create systemd file, start
-# if no silent install, possible configuration in /opt/couchdb specifically [admin] file in local.d
-
-# then desingate to localhost, curl commands to configure database
