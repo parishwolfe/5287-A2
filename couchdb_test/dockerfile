@@ -24,11 +24,13 @@ RUN echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https:
 RUN apt update
 #RUN apt install -y couchdb
 RUN apt install bash -y
-RUN expect couch_expect.sh
+#RUN expect couch_expect.sh
 
 #mk systemd file to start couchdb
 
 #Commands to start in interactive mode
 #docker build -t cdb .  
-#docker run -it cdb bash
+#docker run -it -p 81:80 cdb bash
 
+#ENTRYPOINT []
+#CMD []

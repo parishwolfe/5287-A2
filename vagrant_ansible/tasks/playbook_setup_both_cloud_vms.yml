@@ -8,12 +8,12 @@
 - name: Install pip and JDK
   become: yes
   apt:
-    name: "{{ item }}"
+    pkg:
+      - python3-pip
+      - default-jre
     update_cache: yes
     state: present
-  loop:
-  - python3-pip
-  - default-jre
+
 
 - name: Clone github to get access to files
   git:

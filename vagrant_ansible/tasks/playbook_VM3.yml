@@ -19,8 +19,8 @@
       - curl
       - apt-transport-https
       - gnupg
-  state: present
-  update_cache: yes
+    state: present
+    update_cache: yes
 
 - name: make script executable
   become: yes
@@ -29,6 +29,18 @@
 - name: run script
   become: yes
   ansible.builtin.shell: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+
+- name: install couch
+  become: yes
+  apt: 
+    pkg:
+      - couchdb
+    update_cache: yes
+    state: present
+
+
+
+
 
 # if silent install, all is needed to create systemd file, start
 # if no silent install, possible configuration in /opt/couchdb specifically [admin] file in local.d
