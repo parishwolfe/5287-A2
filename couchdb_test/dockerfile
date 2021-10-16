@@ -1,8 +1,9 @@
 FROM ubuntu:latest
 
 USER 0
+COPY . .
 
-RUN apt update && apt install -y curl apt-transport-https gnupg
+RUN apt update && apt install -y curl apt-transport-https gnupg vim systemctl expect
 RUN curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
 
 #RUN source /etc/os-release
@@ -21,7 +22,13 @@ ENV UBUNTU_CODENAME=focal
 
 RUN echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ ${VERSION_CODENAME} main" | tee /etc/apt/sources.list.d/couchdb.list >/dev/null
 RUN apt update
-RUN apt install -y couchdb
-RUN apt install bash
+#RUN apt install -y couchdb
+RUN apt install bash -y
+RUN expect couch_expect.sh
 
+#mk systemd file to start couchdb
+
+#Commands to start in interactive mode
+#docker build -t cdb .  
+#docker run -it cdb bash
 

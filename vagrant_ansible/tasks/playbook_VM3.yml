@@ -12,7 +12,7 @@
     regexp: 'broker.id=.*'
     line: broker.id = 1
 
-- name: Install couchdb
+- name: Install dependencies
   become: yes
   apt:
     pkg:
@@ -22,5 +22,15 @@
   state: present
   update_cache: yes
 
-- name: run couchdb shell script
+- name: make script executable
   become: yes
+  ansible.builtin.shell: chmod +x /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+
+- name: run script
+  become: yes
+  ansible.builtin.shell: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+
+# if silent install, all is needed to create systemd file, start
+# if no silent install, possible configuration in /opt/couchdb specifically [admin] file in local.d
+
+# then desingate to localhost, curl commands to configure database
