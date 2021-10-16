@@ -1,0 +1,27 @@
+FROM ubuntu:latest
+
+USER 0
+
+RUN apt update && apt install -y curl apt-transport-https gnupg
+RUN curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
+
+#RUN source /etc/os-release
+ENV NAME="Ubuntu"
+ENV VERSION="20.04.3 LTS (Focal Fossa)"
+ENV ID=ubuntu
+ENV ID_LIKE=debian
+ENV PRETTY_NAME="Ubuntu 20.04.3 LTS"
+ENV VERSION_ID="20.04"
+ENV HOME_URL="https://www.ubuntu.com/"
+ENV SUPPORT_URL="https://help.ubuntu.com/"
+ENV BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+ENV PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+ENV VERSION_CODENAME=focal
+ENV UBUNTU_CODENAME=focal
+
+RUN echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ ${VERSION_CODENAME} main" | tee /etc/apt/sources.list.d/couchdb.list >/dev/null
+RUN apt update
+RUN apt install -y couchdb
+RUN apt install bash
+
+

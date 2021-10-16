@@ -5,6 +5,8 @@ echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://ap
     | sudo tee /etc/apt/sources.list.d/couchdb.list >/dev/null
 sudo apt update
 sudo apt install -y couchdb
+
+
 sudo systemctl enable couchdb
 sudo systemctl start couchdb
 
