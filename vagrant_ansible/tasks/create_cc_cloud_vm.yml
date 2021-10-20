@@ -5,7 +5,7 @@
 - name: launch a compute instance
   openstack.cloud.server:
     state: present
-    name: vm2Team9-3
+    name: vm2Team9-demos
     region_name: KVM@TACC
     availability_zone: nova
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
@@ -18,13 +18,13 @@
       - "SHARED-CLOUDCOMPUTING"
       - "SHARED_SSH_INGRESS"
     floating_ips:
-      - 129.114.27.160
+      - 129.114.27.249
     network: "CH-822922-net"
 
 - name: launch a compute instance
   openstack.cloud.server:
     state: present
-    name: vm3Team9-3
+    name: vm3Team9-demos
     region_name: KVM@TACC
     availability_zone: nova
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
@@ -37,5 +37,5 @@
       - "SHARED-CLOUDCOMPUTING"
       - "SHARED_SSH_INGRESS"
     floating_ips:
-      - 129.114.27.189
+      - 129.114.26.158
     network: "CH-822922-net"

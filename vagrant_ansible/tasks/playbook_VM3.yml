@@ -31,11 +31,11 @@
   file: dest=/home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh mode=a+x
 #  file: path=/home/cc/5287-A2/vagrant_ansible/couchdb_files state=file mode=+x
 
-- name: Make my directory tree readable
-  file:
-    dest: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
-    mode: u=rwX,g=rX,o=rX
-    recurse: yes
+#- name: Make my directory tree readable
+#  file:
+#    dest: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+#    mode: u=rwX,g=rX,o=rX
+#    recurse: yes
 
 
 - name: run couch pre-install script

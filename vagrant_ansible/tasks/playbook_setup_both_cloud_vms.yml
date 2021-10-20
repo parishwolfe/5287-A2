@@ -15,12 +15,12 @@
     state: present
 
 
-#- name: Clone github to get access to files
-#  git:
-#    repo: https://github.com/parishwolfe/5287-A2.git
-#    dest: /home/cc/5287-A2
-#    clone: yes
-#    update: yes
+- name: Clone github to get access to files
+  git:
+    repo: https://github.com/parishwolfe/5287-A2.git
+    dest: /home/cc/5287-A2
+    clone: yes
+    update: yes
 
 - name: Create kafka user
   become: yes
