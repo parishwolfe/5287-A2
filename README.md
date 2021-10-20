@@ -12,7 +12,6 @@ The command `vagrant up` creates a virtual machine in VirtualBox and then automa
 
 A demo for this milestone can be found at: https://youtu.be/svjahpe6LWs
 
----
 
 ## Distribution of Work  
 
@@ -98,7 +97,7 @@ A demo can be found here. This demo runs master playbook that creates and config
    * Done. Note playbooks [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml), [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_VM2_run_consumer.yml), and [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml).
 * Run the producer code on each side, all of which should be able to stream their respective unique topic data with the realistic datasets that you used in Assignment 1 to Kafka exactly like we did for Assignment #1. Consumer should be able to receive all topic data from Kafka brokers. 
    *  Done - check demo. 
----
+
 
 ## Distribution of work
 
@@ -148,7 +147,7 @@ VM3:
 ## Demo 
 The are two demo's for this Milestone. First can be found [here](https://www.youtube.com/watch?v=dHgdMUBh2r4). This demo includes two parts. First, it shows the entire program running with vagrant provision. The VMs are created, and then configured correctly. A playbook will automatically run consumer.py on VM2, and then I send producer data to that consumer and into CouchDB. There is an additional demo that shows CouchDB being installed using a playbook. The last demo just demonstrates the playbooks ability to clean-up afterwards and destory the Cloud VMs. It can be found [here](https://youtu.be/xecf4nZbGSQ). 
 
----
+
 
 ## Distribution of work
 
