@@ -93,7 +93,7 @@ A demo can be found here. This demo runs master playbook that creates and config
    - Start ZooKeeper on VM2 
    - Start Apache Kafka brokers on both VM2 and VM3
    - Start Consumer on VM2 
-   * Done in plabynooks [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml), [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_VM2_run_consumer.yml), and [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml).
+   * Done. Note playbooks [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml), [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_VM2_run_consumer.yml), and [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml).
 * Run the producer code on each side, all of which should be able to stream their respective unique topic data with the realistic datasets that you used in Assignment 1 to Kafka exactly like we did for Assignment #1. Consumer should be able to receive all topic data from Kafka brokers. 
    *  Done - check demo. 
 ---
@@ -102,8 +102,10 @@ A demo can be found here. This demo runs master playbook that creates and config
 
 Parish wrote the openshift related ansible modules, while Alex focused on the configuration modules. We came together to test the entire system and film the video. Alex recorded and edited the video, while the documentation for this milestone was a split effort. 
 
-# Milestone 2
-For this milestone we made a playbook that installed and configured CouchDB on VM3. This part was one of the most challenging, as finding the right ansible tasks to install CouchDB took much time and debugging. There were configuration files we needed to add that can be found [here](github.com/parishwolfe/5287-A2/tree/main/vagrant_ansible/couchdb_files). 
+# Milestone 2 
+
+## Installing CouchDB 
+For this milestone we made a playbook that installed and configured CouchDB on VM3. This part was one of the most challenging, as finding the right ansible tasks to install CouchDB took much time and debugging. There were configuration files we needed to add that can be found [here](github.com/parishwolfe/5287-A2/tree/main/vagrant_ansible/couchdb_files). For CouchDB installation we created a playbook that corresponded to the actions on the following [page] (https://docs.couchdb.org/en/stable/install/unix.html). 
 
 ## Checklist 
 * Design additional child Ansible playbooks to install CouchDB on VM3 
