@@ -118,13 +118,13 @@
   lineinfile:
     path: /home/kafka/kafka/config/server.properties
     regexp: 'advertised.listeners=.*'
-    line: advertised.listeners=PLAINTEXT://129.114.27.249:9092
+    line: advertised.listeners=PLAINTEXT://129.114.27.160:9092
 #    line: advertised.listeners=PLAINTEXT://{{ hostvars[vm2]['ansible_default_ipv4']['address'] }}:9092
 - name: Update listeners in server.properties
   become: yes
   lineinfile:
     path: /home/kafka/kafka/config/server.properties
     regexp: 'listeners=PLAINTEXT://:9092'
-    line: listeners=PLAINTEXT://129.114.27.249:9092
+    line: listeners=PLAINTEXT://129.114.27.160:9092
 #    line: advertised.listeners=PLAINTEXT://{{ hostvars[vm2]['ansible_default_ipv4']['address'] }}:9092
 
