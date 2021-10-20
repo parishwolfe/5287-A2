@@ -5,7 +5,7 @@
 - name: launch a compute instance
   openstack.cloud.server:
     state: present
-    name: vm2Team9-demos
+    name: vm2Team9-demo
     region_name: KVM@TACC
     availability_zone: nova
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
@@ -24,7 +24,7 @@
 - name: launch a compute instance
   openstack.cloud.server:
     state: present
-    name: vm3Team9-demos
+    name: vm3Team9-demo
     region_name: KVM@TACC
     availability_zone: nova
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
