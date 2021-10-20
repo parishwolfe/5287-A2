@@ -18,6 +18,8 @@ A demo for this milestone can be found at: https://youtu.be/svjahpe6LWs
 
 Parish edited the Vagrant files, and then we both met over Zoom to test and get the playbooks working. Alex then created documentation and a demo video.  
 
+---
+
 # Milestone 2
 
 With the command vagrant up a vagrant VM is created, and then a [master playbook](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_create_and_provision.yml) is called that subsequently calls a number of other playbooks.  
@@ -101,6 +103,8 @@ A demo can be found here. This demo runs master playbook that creates and config
 ## Distribution of work
 
 Parish wrote the openshift related ansible modules, while Alex focused on the configuration modules. We came together to test the entire system and film the video. Alex recorded and edited the video, while the documentation for this milestone was a split effort. 
+
+---
 
 # Milestone 2 
 
