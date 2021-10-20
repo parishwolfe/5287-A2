@@ -82,8 +82,66 @@ A demo can be found here. This demo runs master playbook that creates and config
 
  The Demo Video can be found here https://www.youtube.com/watch?v=ofIINrupmt0  
 
+## Checklist 
+* Update your Vagrantfile so that it can execute a master Ansible playbook thru the vagrantfile and then invoke vagrant provision (not vagrant up)
+   * Done. 
+* This master Ansible playbook should be able to create VM2 and VM3 in the cloud (using a child playbook)
+   * Done. Playbook found [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/create_cc_cloud_vm.yml).
+* The master Ansible playbook should then invoke additional child playbooks to install Kafka and all the underlying needed packages, copy the consumer.py file to one of the cloud VMs, as well as set the server.properties file appropriately.
+   * Done. Playbook found [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml).
+* Then, the master Ansible playbook via one of its child playbooks should be able to 
+   - Start ZooKeeper on VM2 
+   - Start Apache Kafka brokers on both VM2 and VM3
+   - Start Consumer on VM2 
+   * Done in plabynooks [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml), [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_VM2_run_consumer.yml), and [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml).
+* Run the producer code on each side, all of which should be able to stream their respective unique topic data with the realistic datasets that you used in Assignment 1 to Kafka exactly like we did for Assignment #1. Consumer should be able to receive all topic data from Kafka brokers. 
+   *  Done - check demo. 
 ---
 
 ## Distribution of work
 
-Parish wrote the openshift related ansible modules, while Alex focused on the configuration modules. We came together to test the entire system and film the video. Alex recorded and edited the video, while the documentation for this milestone was a split effort.  
+Parish wrote the openshift related ansible modules, while Alex focused on the configuration modules. We came together to test the entire system and film the video. Alex recorded and edited the video, while the documentation for this milestone was a split effort. 
+
+# Milestone 2
+For this milestone we made a playbook that installed and configured CouchDB on VM3. This part was one of the most challenging, as finding the right ansible tasks to install CouchDB took much time and debugging. There were configuration files we needed to add that can be found [here](github.com/parishwolfe/5287-A2/tree/main/vagrant_ansible/couchdb_files). 
+
+## Checklist 
+* Design additional child Ansible playbooks to install CouchDB on VM3 
+   * Done. Playbook found [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml).
+* Once again execute vagrant provision so that the updated ansible master playbook can install and configure the CouchDB. 
+   * Done. 
+* As before, Consumer code should be able to dump the received contents into CouchDB. Data should be viewable in CouchDB via web console.
+   * Done. Check demo. 
+
+## Configuration details
+
+VM1.1-1.2:
+
+* Python requirements 
+* Playbook files
+* Code files
+* Runs producer.py
+
+VM2:
+
+* Kafka
+* Broker_id = 0
+* Zookeeper
+* Cloned github repo
+* Runs Consumer.py
+
+VM3:
+
+* Kafka
+* Broker_id = 1
+* Cloned github repo
+* CouchDB
+
+## Demo 
+A demo for this Milstone can be found [here](https://www.youtube.com/watch?v=dHgdMUBh2r4). This demo includes two parts. First, it shows the entire program running with vagrant provision. The VMs are created, and then configured correctly. A playbook will automatically run consumer.py on VM2, and then I send producer data to that consumer and into CouchDB. There is an additional demo that shows CouchDB being installed using a specific playbook. 
+
+---
+
+## Distribution of work
+
+Parish wrote the playbook and configurations files to install CouchDB. Alex then debugged the code, and had to edit it to run on her Mac computer (as opposed to Parish's Windows computer). Alex recorded and edited the video, and wrote documentation.
