@@ -3,7 +3,7 @@
   lineinfile:
     path: /home/kafka/kafka/config/server.properties
     regexp: 'zookeeper.connect=.*'
-    line: zookeeper.connect=129.114.27.160:2181
+    line: zookeeper.connect=129.114.27.249:2181
 #    line: zookeeper.connect={{ hostvars[vm2]['ansible_default_ipv4']['address'] }}:2198
 
 - name: Update broker.id on VM2 server.properties
@@ -22,17 +22,30 @@
     state: present
     update_cache: yes
 
-- name: make couch pre-install script executable
+#- name: make couch pre-install script executable
+#  become: yes
+#  ansible.builtin.shell: chmod +x /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+
+- name: make files executable
   become: yes
-  ansible.builtin.shell: chmod +x /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+  file: dest=/home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh mode=a+x
+#  file: path=/home/cc/5287-A2/vagrant_ansible/couchdb_files state=file mode=+x
+
+- name: Make my directory tree readable
+  file:
+    dest: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+    mode: u=rwX,g=rX,o=rX
+    recurse: yes
+
 
 - name: run couch pre-install script
   become: yes
-  ansible.builtin.shell: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
-
+  command: sh /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+#  ansible.builtin.shell: /home/cc/5287-A2/vagrant_ansible/couchdb_files/install_couchdb.sh
+#
 - name: install couch
   become: yes
-  apt: 
+  apt:
     pkg:
       - couchdb
     update_cache: yes
@@ -40,15 +53,15 @@
 
 - name: copy configuration files 1/3
   become: yes
-  copy: 
+  copy:
     src: /home/cc/5287-A2/vagrant_ansible/couchdb_files/10-admins.ini
     remote_src: yes
     dest: /opt/couchdb/etc/local.d/10-admins.ini
     owner: cc
-  
+
 - name: copy configuration files 2/3
   become: yes
-  copy: 
+  copy:
     src: /home/cc/5287-A2/vagrant_ansible/couchdb_files/10-bind-address.ini
     remote_src: yes
     dest: /opt/couchdb/etc/default.d/10-bind-address.ini
@@ -70,15 +83,15 @@
     enabled: yes
 
 - name: configure database
-  ansible.builtin.shell: curl -X PUT http://admin:welcome@127.0.0.1:5984/cloud_class
+  shell: curl -X PUT http://admin:welcome@127.0.0.1:5984/cloud_class
 
-## Not working - 401 unauthorized result
+# Not working - 401 unauthorized result
 # - name: configure cdb
 #   uri:
 #     url: http://127.0.0.1:5984/cloud_class
 #     method: PUT
-#     user: admin
-#     password: welcome
+#     url_username: admin
+#     url_password: welcome
 #     status_code: [200, 202]
 
 
