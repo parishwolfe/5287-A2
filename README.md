@@ -151,4 +151,4 @@ The are two demo's for this Milestone. First can be found [here](https://www.you
 
 ## Distribution of work
 
-Parish wrote the playbook and configurations files to install CouchDB. Alex then edited code to run on her Mac computer (as opposed to Parish's Windows computer), and wrote a playbook to destory cloud instances. Alex created the demos and wrote documentation. 
+Parish wrote the playbook and configuration files to install CouchDB. Alex then edited code to run on her Mac computer (as opposed to Parish's Windows computer), and wrote a playbook to destory cloud instances. Alex created the demos and wrote documentation. 
