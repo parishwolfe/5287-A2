@@ -96,8 +96,6 @@ A demo can be found here. This demo runs master playbook that creates and config
    * Done. Note playbooks [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_setup_both_cloud_vms.yml), [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/playbook_VM2_run_consumer.yml), and [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_VM3.yml).
 * Run the producer code on each side, all of which should be able to stream their respective unique topic data with the realistic datasets that you used in Assignment 1 to Kafka exactly like we did for Assignment #1. Consumer should be able to receive all topic data from Kafka brokers. 
    *  Done - check demo. 
-* Keep a separate master playbook that is able to clean up everything after the demo is done. 
-   * Done. Playbook [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_destory_VMS.yml). Check [this](https://youtu.be/xecf4nZbGSQ) demo. 
 ---
 
 ## Distribution of work
@@ -116,6 +114,8 @@ For this milestone we made a playbook that installed and configured CouchDB on V
    * Done. 
 * As before, Consumer code should be able to dump the received contents into CouchDB. Data should be viewable in CouchDB via web console.
    * Done. Check demo. 
+* Keep a separate master playbook that is able to clean up everything after the demo is done. 
+   * Done. Playbook [here](github.com/parishwolfe/5287-A2/blob/main/vagrant_ansible/tasks/playbook_destory_VMS.yml). Check [this](https://youtu.be/xecf4nZbGSQ) demo. 
 
 ## Configuration details
 
