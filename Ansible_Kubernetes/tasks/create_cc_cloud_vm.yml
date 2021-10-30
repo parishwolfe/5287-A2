@@ -1,0 +1,45 @@
+# LINKS FOR REFERENCE
+# https://docs.ansible.com/ansible/latest/collections/openstack/cloud/server_module.html
+# with AWS https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_module.html
+
+- name: launch a compute instance
+  openstack.cloud.server:
+    state: present
+    name: team9-kubemaster-2
+    region_name: KVM@TACC
+    availability_zone: nova
+    image: cc7a1d9a-7501-4935-b171-bb881a7d767d
+    key_name: Team9
+    timeout: 200
+    flavor: m1.medium
+    security_groups:
+      - "default"
+      - "HTTP_HTTPS_INGRESS_EGRESS"
+      - "SHARED-CLOUDCOMPUTING"
+      - "SHARED_SSH_INGRESS"
+      -	"zookeeper_security_group"
+      - "KUBERNETES_PORTS"
+    floating_ips:
+      - 129.114.26.158
+    network: "CH-822922-net"
+
+- name: launch a compute instance
+  openstack.cloud.server:
+    state: present
+    name: 	team9-kubeworker-2
+    region_name: KVM@TACC
+    availability_zone: nova
+    image: cc7a1d9a-7501-4935-b171-bb881a7d767d
+    key_name: Team9
+    timeout: 200
+    flavor: m1.small
+    security_groups:
+      - "default"
+      - "HTTP_HTTPS_INGRESS_EGRESS"
+      - "SHARED-CLOUDCOMPUTING"
+      - "SHARED_SSH_INGRESS"
+      -	"zookeeper_security_group"
+      - "KUBERNETES_PORTS"
+    floating_ips:
+      - 129.114.27.249
+    network: "CH-822922-net"

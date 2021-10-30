@@ -1,0 +1,15 @@
+- name: tear-down instance instance
+  openstack.cloud.server:
+    state: absent
+    name: vm2Team9-demo
+    region_name: KVM@TACC
+    availability_zone: nova
+    network: "CH-822922-net"
+
+- name: tear-down instance instance
+  openstack.cloud.server:
+    state: absent
+    name: vm3Team9-demo
+    region_name: KVM@TACC
+    availability_zone: nova
+    network: "CH-822922-net"

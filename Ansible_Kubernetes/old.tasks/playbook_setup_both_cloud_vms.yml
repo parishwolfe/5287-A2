@@ -1,0 +1,130 @@
+- name: Update and upgrade apt packages
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install pip and JDK
+  become: yes
+  apt:
+    pkg:
+      - python3-pip
+      - default-jre
+    update_cache: yes
+    state: present
+
+
+- name: Clone github to get access to files
+  git:
+    repo: https://github.com/parishwolfe/5287-A2.git
+    dest: /home/cc/5287-A2
+    clone: yes
+    update: yes
+
+- name: Create kafka user
+  become: yes
+  user:
+    name: kafka
+    groups:
+      - sudo
+    append: yes
+
+- name: Create directory for kafka user
+  become_user: kafka
+  become: yes
+  file:
+    path: /home/kafka/Downloads
+    state: directory
+
+- name: Download kafka
+  become_user: kafka
+  become: yes
+  get_url:
+    url: https://downloads.apache.org/kafka/2.6.2/kafka_2.13-2.6.2.tgz
+    dest: /home/kafka/Downloads/kafka.tgz
+
+- name: Create /home/kafka/kafka directory
+  become_user: kafka
+  become: yes
+  file:
+    path: /home/kafka/kafka
+    state: directory
+
+- name: Install kafka
+  become_user: kafka
+  become: yes
+  unarchive:
+    src: /home/kafka/Downloads/kafka.tgz
+    remote_src: yes
+    dest: /home/kafka/kafka/
+    extra_opts: [--strip-components=1]
+
+- name: Allow everything and enable UFW
+  become: yes
+  ufw:
+    state: enabled
+    policy: allow
+
+- name: Edit firewall rules
+  become: yes
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop:
+  - "2181"
+  - "4369"
+  - "5984"
+  - "9092"
+  - "22"
+
+- name: Copy over zookeeper.service and kafka.service files
+  become: yes
+  copy:
+    src: /home/cc/5287-A2/vagrant_ansible/kafka_files/kafka.service
+    remote_src: yes
+    dest: /etc/systemd/system/kafka.service
+    owner: kafka
+
+- name: Copy over zookeeper.service and kafka.service files
+  become: yes
+  copy:
+    src: /home/cc/5287-A2/vagrant_ansible/kafka_files/zookeeper.service
+    remote_src: yes
+    dest: /etc/systemd/system/zookeeper.service
+    owner: kafka
+
+- name: Start kafka and zookeeper
+  become: yes
+  systemd:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  loop:
+  - kafka
+  - zookeeper
+
+#- name: install the package, force upgrade
+#  pip:
+#    name: pip
+#    extra_args: --upgrade
+
+- name: Install python requirements
+  pip:
+    requirements: /home/cc/5287-A2/vagrant_ansible/code_files/requirements.txt
+
+- name: Update advertised.listeners in server.properties
+  become: yes
+  lineinfile:
+    path: /home/kafka/kafka/config/server.properties
+    regexp: 'advertised.listeners=.*'
+    line: advertised.listeners=PLAINTEXT://129.114.27.160:9092
+#    line: advertised.listeners=PLAINTEXT://{{ hostvars[vm2]['ansible_default_ipv4']['address'] }}:9092
+- name: Update listeners in server.properties
+  become: yes
+  lineinfile:
+    path: /home/kafka/kafka/config/server.properties
+    regexp: 'listeners=PLAINTEXT://:9092'
+    line: listeners=PLAINTEXT://129.114.27.160:9092
+#    line: advertised.listeners=PLAINTEXT://{{ hostvars[vm2]['ansible_default_ipv4']['address'] }}:9092
+

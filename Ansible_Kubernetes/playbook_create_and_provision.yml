@@ -1,0 +1,45 @@
+---
+#
+# EECS 4287/5287: Principles of Cloud Computing
+# Author: Aniruddha Gokhale
+# Created: Fall 2017
+# Modified: Fall 2020
+#
+# This playbook is our demo master file
+# The goal is to show how to have a single master file which then
+# includes multiple plays according to some well-designed choreography
+#
+# This file is similar to the one in the AnsibleOnly_Local_and_Cloud folder
+# For now I just kept one play in here but feel free to add more.
+#####################################################
+### Play 1: Get facts from all our VMs
+#
+# Here I show the use of import_tasks from child playbooks
+#####################################################
+- name: "Create VMs and write to dynamic inventory"
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+ #  collections: # this is new starting with Ansible 2.9 (akin to importing package)
+ #    - openstack.cloud
+  tasks:
+    - include_tasks: tasks/create_cc_cloud_vm.yml
+
+
+- name: wait for spin up
+  hosts: localhost
+  tasks:
+  - name: wait for 45 seconds
+    wait_for:
+      timeout: 45
+    delegate_to: localhost
+
+
+- name: kubernetes installation
+  hosts: bothvms
+  tasks:
+    - include_tasks: tasks/install_kubernetes.yaml
+    
+
+...
+
