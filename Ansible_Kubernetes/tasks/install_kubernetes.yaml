@@ -51,3 +51,37 @@
     upgrade: yes
     update_cache: yes
     cache_valid_time: 86400
+
+- name: make install sources script executable
+  become: yes
+  file: dest=/home/cc/5287-A2/Ansible-kubernetes/kubernetes_files/update_sources.sh mode=a+x
+
+- name: run install sources script
+  become: yes
+  command: sh /home/cc/5287-A2/Ansible-kubernetes/kubernetes_files/update_sources.sh
+
+- name: install docker
+  become: yes
+  apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+  update_cache: yes
+  state: present
+
+- name: update docker config
+  become: yes
+  lineinfile:
+    path: /lib/systemd/system/docker.service
+    regexp: 'ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock'
+    line: ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --exec-opt native.cgroupdriver=systemd
+
+- name: restart docker
+  become: yes
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
+
+    
