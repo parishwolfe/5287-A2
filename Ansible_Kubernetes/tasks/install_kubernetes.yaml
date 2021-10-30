@@ -1,4 +1,53 @@
+- name: install prerequisites
+  become: yes
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - git
+      - net-tools
+      - jq
+    update_cache: yes
+    state: present
+
+- name: configure firewall
+  become: yes
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop:
+    - "22/tcp"
+    - "80/tcp"
+    - "443/tcp"
+    - "2379:2380/tcp"
+    - "4040/tcp"
+    - "5000/tcp"
+    - "6443/tcp"
+    - "7076:7079/tcp"
+    - "8001/tcp"
+    - "8080/tcp"
+    - "8080:8081/tcp"
+    - "8472/udp"
+    - "8285/udp"
+    - "30000:30010/tcp"
+    - "10252/tcp"
+    - "10251/tcp"
+    - "10250/tcp"
+
+- name: Clone github to get access to files
+  ignore_errors: yes
+  git:
+    repo: https://github.com/parishwolfe/5287-A2.git
+    dest: /home/cc/5287-A2
+    clone: yes
+    update: yes
 
 
-- name: install docker
-  
+- name: update apt sources
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
