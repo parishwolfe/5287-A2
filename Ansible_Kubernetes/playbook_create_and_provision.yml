@@ -16,12 +16,12 @@
 #
 # Here I show the use of import_tasks from child playbooks
 #####################################################
-- name: "Create VMs and write to dynamic inventory"
+- name: "Create VMs"
   hosts: localhost
   connection: local
   gather_facts: yes
- #  collections: # this is new starting with Ansible 2.9 (akin to importing package)
- #    - openstack.cloud
+  # collections: # this is new starting with Ansible 2.9 (akin to importing package)
+  #   - openstack.cloud
   tasks:
     - include_tasks: tasks/create_cc_cloud_vm.yml
 
@@ -35,17 +35,17 @@
     delegate_to: localhost
 
 
-- name: kubernetes installation
-  hosts: bothvms
-  tasks:
-    - name: Update and upgrade apt packages
-      become: yes
-      apt:
-        upgrade: yes
-        update_cache: yes
-        cache_valid_time: 86400
+# - name: kubernetes installation
+#   hosts: bothvms
+#   tasks:
+#     - name: Update and upgrade apt packages
+#       become: yes
+#       apt:
+#         upgrade: yes
+#         update_cache: yes
+#         cache_valid_time: 86400
         
-    - include_tasks: tasks/install_kubernetes.yaml
+#     - include_tasks: tasks/install_kubernetes.yaml
     
 
 ...
