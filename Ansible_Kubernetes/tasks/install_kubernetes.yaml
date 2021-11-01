@@ -1,3 +1,5 @@
+---
+
 - name: install prerequisites
   become: yes
   apt:
@@ -26,7 +28,7 @@
     - "4040"
     - "5000"
     - "6443"
-    - "7076
+    - "7076"
     - "7077"
     - "7078"
     - "7079"
@@ -91,4 +93,4 @@
     daemon_reload: yes
     name: docker
 
-    
+...
