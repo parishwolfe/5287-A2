@@ -12,7 +12,7 @@
     availability_zone: nova
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
     key_name: Team9
-    timeout: 200
+    #timeout: 200
     flavor: m1.medium
     security_groups:
       - "default"
@@ -33,7 +33,7 @@
     availability_zone: nova
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
     key_name: Team9
-    timeout: 200
+    #timeout: 200
     flavor: m1.small
     security_groups:
       - "default"

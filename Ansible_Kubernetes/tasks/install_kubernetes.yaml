@@ -18,23 +18,37 @@
     rule: allow
     port: "{{ item }}"
   loop:
-    - "22/tcp"
-    - "80/tcp"
-    - "443/tcp"
-    - "2379:2380/tcp"
-    - "4040/tcp"
-    - "5000/tcp"
-    - "6443/tcp"
-    - "7076:7079/tcp"
-    - "8001/tcp"
-    - "8080/tcp"
-    - "8080:8081/tcp"
-    - "8472/udp"
-    - "8285/udp"
-    - "30000:30010/tcp"
-    - "10252/tcp"
-    - "10251/tcp"
-    - "10250/tcp"
+    - "22"
+    - "80"
+    - "443"
+    - "2379"
+    - "2380"
+    - "4040"
+    - "5000"
+    - "6443"
+    - "7076
+    - "7077"
+    - "7078"
+    - "7079"
+    - "8001"
+    - "8080"
+    - "8081"
+    - "8472"
+    - "8285"
+    - "30000"
+    - "30001"
+    - "30002"
+    - "30003"
+    - "30004"
+    - "30005"
+    - "30006"
+    - "30007"
+    - "30008"
+    - "30009"
+    - "30010"
+    - "10252"
+    - "10251"
+    - "10250"
 
 - name: Clone github to get access to files
   ignore_errors: yes
@@ -43,14 +57,6 @@
     dest: /home/cc/5287-A2
     clone: yes
     update: yes
-
-
-- name: update apt sources
-  become: yes
-  apt:
-    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 86400
 
 - name: make install sources script executable
   become: yes
@@ -67,8 +73,9 @@
       - docker-ce
       - docker-ce-cli
       - containerd.io
-  update_cache: yes
-  state: present
+    update_cache: yes
+    state: present
+
 
 - name: update docker config
   become: yes
