@@ -86,7 +86,16 @@
     - include_tasks: tasks/install_kubernetes.yaml
     
 - name: set up cluster
-  hosts: 
+  hosts: vm2
+  tasks:
+    - name: run kubeadm
+      become: yes
+      shell:  kubeadm init --node-name=kubemaster --pod-network-cidr=10.224.0.0/16
+      register: result
+
+    - name: print join command
+      debug:
+        msg: "{{ result }}"
 
 
 ...
