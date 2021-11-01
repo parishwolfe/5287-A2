@@ -62,11 +62,11 @@
 
 - name: make install sources script executable
   become: yes
-  file: dest=/home/cc/5287-A2/Ansible-kubernetes/kubernetes_files/update_sources.sh mode=a+x
+  file: dest=/home/cc/5287-A2/Ansible_Kubernetes/kubernetes_files/update_sources.sh mode=a+x
 
 - name: run install sources script
   become: yes
-  command: sh /home/cc/5287-A2/Ansible-kubernetes/kubernetes_files/update_sources.sh
+  command: sh /home/cc/5287-A2/Ansible_Kubernetes/kubernetes_files/update_sources.sh
 
 - name: install docker
   become: yes
@@ -92,5 +92,16 @@
     state: restarted
     daemon_reload: yes
     name: docker
+
+- name: install kubernetes
+  become: yes
+  apt:
+    pkg:
+      - kubeadm
+      - kubelet
+      - kubectl
+      - kubernetes-cni
+    update_cache: yes
+    state: present
 
 ...
