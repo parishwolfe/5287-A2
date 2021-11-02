@@ -9,7 +9,7 @@
 #   #   - openstack.cloud
 #   tasks:
 #     - include_tasks: tasks/create_cc_cloud_vm.yml
-        # This was tested working but last test randomly failed on the 2nd creation, need to look into why.
+#         #This was tested working but last test randomly failed on the 2nd creation, need to look into why.
 
 
 # - name: wait for spin up
@@ -105,6 +105,19 @@
       become: yes
       shell: chown $(id -u):$(id -g) $HOME/.kube/config
 
+    - name: "wipe the taint"
+      ignore_errors: yes
+      shell: kubectl taint nodes kubemaster node-role.kubernetes.io/master:NoSchedule-
+
+    - name: bundle up with flannel
+      become: yes
+      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+      register: result
+
+    - name: print result
+      debug:
+        msg: "{{ result }}"
+
     - name: collect join command
       shell: kubeadm token create --print-join-command
       register: result
@@ -123,7 +136,6 @@
     - name: print result
       debug:
         msg: "{{ result }}"
-
 
 
 
