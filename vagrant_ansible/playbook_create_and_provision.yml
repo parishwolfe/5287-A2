@@ -26,9 +26,9 @@
     - include_tasks: tasks/create_cc_cloud_vm.yml
 #    - include_tasks: tasks/playbook_destory_VMS.yml
 #     - include_tasks: tasks/get_facts_cloud_vm.yml
-
+GG
 - name: wait for spin up
-  hosts: localhost
+    hosts: localhost
   tasks:
   - name: wait for 45 seconds
     wait_for:
