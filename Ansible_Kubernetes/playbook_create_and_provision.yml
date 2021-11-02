@@ -1,27 +1,27 @@
 ---
 
 ### Spin up servers and wait for them to become responsive
-# - name: "Create VMs"
-#   hosts: localhost
-#   connection: local
-#   gather_facts: yes
-#   # collections: # this is new starting with Ansible 2.9 (akin to importing package)
-#   #   - openstack.cloud
-#   tasks:
-#     - include_tasks: tasks/create_cc_cloud_vm.yml
-#         #This was tested working but last test randomly failed on the 2nd creation, need to look into why.
+- name: "Create VMs"
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  # collections: # this is new starting with Ansible 2.9 (akin to importing package)
+  #   - openstack.cloud
+  tasks:
+    - include_tasks: tasks/create_cc_cloud_vm.yml
+        #This was tested working but last test randomly failed on the 2nd creation, need to look into why.
 
 
-# - name: wait for spin up
-#   hosts: localhost
-#   tasks:
-#   - name: wait
-#     wait_for:
-#       timeout: 120
-#     delegate_to: localhost
+- name: wait for spin up
+  hosts: localhost
+  tasks:
+  - name: wait
+    wait_for:
+      timeout: 120
+    delegate_to: localhost
 
 
-### Write /etc/hosts files on both nodes ### 
+## Write /etc/hosts files on both nodes ### 
 - name: "collect server info kubemaser"
   hosts: localhost
   connection: local
@@ -93,24 +93,21 @@
       become: yes
       shell:  kubeadm init --node-name=kubemaster --pod-network-cidr=10.224.0.0/16
 
-      # These 3 steps are untested!! if they dont work out the gate, we may have to change $HOME to ~
     - name: regular user setup (1/3)
       shell: mkdir -p $HOME/.kube
 
     - name: regular user setup (2/3)
-      become: yes
-      shell: cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+      shell: sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
 
     - name: regular user setup (3/3)
-      become: yes
-      shell: chown $(id -u):$(id -g) $HOME/.kube/config
+      shell: sudo chown $(id -u):$(id -g) ~/.kube/config
 
+      # may produce an error when it actually succeeds
     - name: "wipe the taint"
       ignore_errors: yes
       shell: kubectl taint nodes kubemaster node-role.kubernetes.io/master:NoSchedule-
 
     - name: bundle up with flannel
-      become: yes
       shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
       register: result
 
