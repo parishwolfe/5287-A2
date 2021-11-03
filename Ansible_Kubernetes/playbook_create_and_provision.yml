@@ -1,5 +1,4 @@
 ---
-
 ### Spin up servers and wait for them to become responsive
 - name: "Create VMs"
   hosts: localhost
@@ -11,7 +10,6 @@
     - include_tasks: tasks/create_cc_cloud_vm.yml
         #This was tested working but last test randomly failed on the 2nd creation, need to look into why.
 
-
 - name: wait for spin up
   hosts: localhost
   tasks:
@@ -21,7 +19,7 @@
     delegate_to: localhost
 
 
-## Write /etc/hosts files on both nodes ### 
+## Write /etc/hosts files on both nodes ###
 - name: "collect server info kubemaser"
   hosts: localhost
   connection: local
@@ -74,7 +72,7 @@
 
 
 ### Kubernetes installation Start
-- name: all nodes kubernetes installation 
+- name: all nodes kubernetes installation
   hosts: bothvms
   tasks:
     - name: Update and upgrade packages
@@ -83,9 +81,9 @@
         upgrade: yes
         update_cache: yes
         cache_valid_time: 86400
-        
+
     - include_tasks: tasks/install_kubernetes.yaml
-    
+
 - name: set up master node
   hosts: vm2
   tasks:
@@ -133,11 +131,6 @@
     - name: print result
       debug:
         msg: "{{ result }}"
-
-
-
-
-
 
 
 ...
