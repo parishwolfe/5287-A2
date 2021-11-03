@@ -89,7 +89,7 @@
   tasks:
     - name: run kubeadm
       become: yes
-      shell:  kubeadm init --node-name=kubemaster --pod-network-cidr=10.224.0.0/16
+      shell:  kubeadm init --node-name=kubemaster --pod-network-cidr=10.244.0.0/16
 
     - name: regular user setup (1/3)
       shell: mkdir -p $HOME/.kube

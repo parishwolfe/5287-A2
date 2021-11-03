@@ -48,6 +48,6 @@ spec:
         - name: COUCHDB_USER
           value: admin
         - name: COUCHDB_PASSWORD
-          value: "789456123"
+          value: "password"
         - name: NODENAME
           value: couchNode
