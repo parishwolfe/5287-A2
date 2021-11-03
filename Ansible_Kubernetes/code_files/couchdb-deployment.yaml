@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: couchdb
+  name: couchdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: couchdb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: couchdb
+    spec:
+      containers:
+      - env:
+        - name: COUCHDB_CREATE_DATABASES
+          value: '"yes"'
+        - name: COUCHDB_PASSWORD
+          value: password
+        - name: COUCHDB_USER
+          value: admin
+        image: docker.io/bitnami/couchdb:3
+        imagePullPolicy: ""
+        name: couchdb
+        ports:
+        - containerPort: 5984
+        resources: {}
+        volumeMounts:
+        - mountPath: /bitnami/couchdb
+          name: codefiles-couchdb-data
+      restartPolicy: Always
+      serviceAccountName: ""
+      status: { }

@@ -18,6 +18,7 @@ import sys
 import json
 import config
 import couchdb
+import os
 
 # We can make this more sophisticated/elegant but for now it is just
 # hardcoded to the setup I have on my local VMs
@@ -32,18 +33,19 @@ consumer.subscribe(topics=["ny", "chi"])
 # Variables for CouchDB
 
 # settings for couchdb
-couchdb_username = 'admin'
-couchdb_password = 'welcome'
-couchdb_database = 'cloud_class'
+couchdb_username = os.getenv("COUCHDB_USER")
+couchdb_password = os.getenv("COUCHDB_PASSWORD")
+couchdb_database = os.getenv("COUCHDB_DATABASE")
+couchdb_host = os.getenv("COUCHDB_HOST")
 
 # Connect to CouchDB
-couch_db = couchdb.Server(f"http://{couchdb_username}:{couchdb_password}@129.114.27.189:5984/")
+couch_db = couchdb.Server(f"http://{couchdb_username}:{couchdb_password}@{couchdb_host}:5984/")
 
 # Create Database - or access if already created
 
 try:
     db = couch_db.create(couchdb_database)  # newly created
-except:
+except Exception:
     db = couch_db[couchdb_database]  # existing
 
 for msg in consumer:

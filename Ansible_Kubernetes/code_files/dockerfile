@@ -1,0 +1,17 @@
+FROM ubuntu:latest
+
+COPY . .
+
+ENV COUCHDB_USER=admin
+ENV COUCHDB_PASSWORD=password
+ENV COUCHDB_DATABASE=cloud_class
+ENV COUCHDB_HOST=couchdb
+ENV KAFKA1=kafka1:9092
+ENV KAFKA2=kafka2:9092
+
+RUN apt update && apt upgrade -y
+RUN apt install -y python3-pip
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install -r requirements.txt
+
+ENTRYPOINT ["python3", "consumer.py"]
