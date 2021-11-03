@@ -1,79 +1,138 @@
 ---
-#
-# EECS 4287/5287: Principles of Cloud Computing
-# Author: Aniruddha Gokhale
-# Created: Fall 2017
-# Modified: Fall 2020
-#
-# This playbook is our demo master file
-# The goal is to show how to have a single master file which then
-# includes multiple plays according to some well-designed choreography
-#
-# This file is similar to the one in the AnsibleOnly_Local_and_Cloud folder
-# For now I just kept one play in here but feel free to add more.
-#####################################################
-### Play 1: Get facts from all our VMs
-#
-# Here I show the use of import_tasks from child playbooks
-#####################################################
-#- name: "Create VMs and write to dynamic inventory"
-#  hosts: localhost
-#  connection: local
-#  gather_facts: yes
-# #  collections: # this is new starting with Ansible 2.9 (akin to importing package)
-# #    - openstack.cloud
-#  tasks:
-#    - include_tasks: tasks/create_cc_cloud_vm.yml
-#    - include_tasks: tasks/playbook_destory_VMS.yml
-#     - include_tasks: tasks/get_facts_cloud_vm.yml
+### Spin up servers and wait for them to become responsive
+- name: "Create VMs"
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  # collections: # this is new starting with Ansible 2.9 (akin to importing package)
+  #   - openstack.cloud
+  tasks:
+    - include_tasks: tasks/create_cc_cloud_vm.yml
+        #This was tested working but last test randomly failed on the 2nd creation, need to look into why.
 
 - name: wait for spin up
   hosts: localhost
   tasks:
-  - name: wait for 45 seconds
+  - name: wait
     wait_for:
-      timeout: 45
+      timeout: 120
     delegate_to: localhost
-#
-#- name: "set up localhost"
-#  hosts: localhost
-#  connection: local
-#  gather_facts: yes
-#  tasks:
-#    - include_tasks: tasks/playbook_set_up_local_vm.yml
-##
-### - name: execute top
-###   hosts: bothvms
-###   remote_user: cc
-###   tasks:
-###   - name: Execute a command on remote cloud VM
-###     command: top -n 1 -b  # say we execute our famous command from assignment #1
-###     register: output
-###
-###   - name: Print the output
-###     debug:
-###       msg: "{{ output }}"
-##
-#- name: "Master Playbook 2: set-up VM2 amd VM3"
-#  hosts: bothvms
-#  remote_user:  cc
-#  tasks:
-#  - include_tasks: tasks/playbook_setup_both_cloud_vms.yml
-#
-#
-# #host: vm3
-#- name: "Master Playbook 3: VM3"
-#  hosts: vm3
-#  remote_user:  cc
-#  become: true
-#  tasks:
-#  - include_tasks: tasks/playbook_VM3.yml
-#
-#- name: "run consumer"
-#  hosts: vm2
-#  remote_user: cc
-#  tasks:
-#  - include_tasks: tasks/playbook_VM2_run_consumer.yml
+
+
+## Write /etc/hosts files on both nodes ###
+- name: "collect server info kubemaser"
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  tasks:
+    - name: get info from openstack
+      openstack.cloud.server_info:
+        server: team9-kubemaster-2
+      register: result
+    - set_fact:
+        kubemaster_private: "{{ result.openstack_servers.0.private_v4 }}"
+    - set_fact:
+        kubemaster_public: "{{ result.openstack_servers.0.public_v4 }}"
+
+- name: "write hosts file kubemaster"
+  hosts: vm2
+  tasks:
+    - name: add private ip to hosts file
+      become: yes
+      shell: "echo '{{ hostvars['localhost']['kubemaster_private'] }} team9-kubemaster-2 kubemaster kubeworker1' >> /etc/hosts"
+
+    - name: add public ip to hosts file
+      become: yes
+      shell: "echo '{{ hostvars['localhost']['kubemaster_public'] }} team9-kubemaster-2 kubemaster kubeworker1' >> /etc/hosts"
+
+- name: "collect server info kubeworker"
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+  tasks:
+    - name: get info from openstack
+      openstack.cloud.server_info:
+        server: team9-kubeworker-2
+      register: result
+    - set_fact:
+        kubeworker_private: "{{ result.openstack_servers.0.private_v4 }}"
+    - set_fact:
+        kubeworker_public: "{{ result.openstack_servers.0.public_v4 }}"
+
+- name: "write hosts file kubeworker"
+  hosts: vm3
+  tasks:
+    - name: add private ip to hosts file
+      become: yes
+      shell: "echo '{{ hostvars['localhost']['kubeworker_private'] }} team9-kubeworker-2 kubeworker kubeworker2' >> /etc/hosts"
+
+    - name: add public ip to hosts file
+      become: yes
+      shell: "echo '{{ hostvars['localhost']['kubeworker_public'] }} team9-kubeworker-2 kubeworker kubeworker2' >> /etc/hosts"
+
+
+### Kubernetes installation Start
+- name: all nodes kubernetes installation
+  hosts: bothvms
+  tasks:
+    - name: Update and upgrade packages
+      become: yes
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
+
+    - include_tasks: tasks/install_kubernetes.yaml
+
+- name: set up master node
+  hosts: vm2
+  tasks:
+    - name: run kubeadm
+      become: yes
+      shell:  kubeadm init --node-name=kubemaster --pod-network-cidr=10.244.0.0/16
+
+    - name: regular user setup (1/3)
+      shell: mkdir -p $HOME/.kube
+
+    - name: regular user setup (2/3)
+      shell: sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config
+
+    - name: regular user setup (3/3)
+      shell: sudo chown $(id -u):$(id -g) ~/.kube/config
+
+      # may produce an error when it actually succeeds
+    - name: "wipe the taint"
+      ignore_errors: yes
+      shell: kubectl taint nodes kubemaster node-role.kubernetes.io/master:NoSchedule-
+
+    - name: bundle up with flannel
+      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+      register: result
+
+    - name: print result
+      debug:
+        msg: "{{ result }}"
+
+    - name: collect join command
+      shell: kubeadm token create --print-join-command
+      register: result
+
+    - set_fact:
+        join_command: "{{ result }}"
+
+- name: set up worker node
+  hosts: vm3
+  tasks:
+    - name: join cluster
+      become: yes
+      shell: "{{ hostvars['129.114.26.158']['join_command']['stdout'] }} --node-name=kubeworker"
+      register: result
+
+    - name: print result
+      debug:
+        msg: "{{ result }}"
+
 
 ...
+
 
