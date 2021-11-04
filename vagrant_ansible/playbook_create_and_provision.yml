@@ -19,7 +19,7 @@
     delegate_to: localhost
 
 
-## Write /etc/hosts files on both nodes ###
+# Write /etc/hosts files on both nodes ###
 - name: "collect server info kubemaser"
   hosts: localhost
   connection: local
