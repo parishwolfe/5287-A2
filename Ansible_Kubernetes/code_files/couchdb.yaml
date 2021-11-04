@@ -8,11 +8,10 @@ spec:
     app: couchdb
   type: NodePort
   ports:
-    # Standard clustered port for all HTTP API requests (and web GUI)
     - protocol: TCP
       port: 5984
       targetPort: 5984
-      nodePort: 30984
+      nodePort: 30010
       name: http
 
 ---
@@ -40,7 +39,7 @@ spec:
         resources:
           requests:
             memory: "64Mi"
-            cpu: "250m" # 250 milliCPUs
+            cpu: "250m"
           limits:
             memory: "128Mi"
             cpu: "500m"
