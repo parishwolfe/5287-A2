@@ -164,11 +164,11 @@ Parish wrote the playbook and configuration files to install CouchDB. Alex then 
    * Done. Playbook can be found [here](https://github.com/parishwolfe/5287-A2/blob/main/Ansible_Kubernetes/tasks/install_kubernetes.yaml) and [here](https://github.com/parishwolfe/5287-A2/blob/main/Ansible_Kubernetes/playbook_create_and_provision.yml).
 * Now do this manually for milestone 1: 
     * Log into VM2 (master) and run the kubeadm command on master to create a cluster
-        Done. 
+        * Done. 
     * Add VM3 as a worker to this master
-        Done. Screenshot below ![img](images/getnodes.png)
+        * Done. Screenshot below ![img](images/getnodes.png)
     * Taint the master so that the master can also become a worker
-        Done. 
+        * Done. 
     * Run the scaffolding code (Deployment and Job demos) to show that you can deploy a deployment pod and worker pod on your k8s cluster
         * Done. Screenshots below. 
     
