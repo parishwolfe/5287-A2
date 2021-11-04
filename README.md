@@ -157,10 +157,11 @@ Parish wrote the playbook and configuration files to install CouchDB. Alex then 
 
 # Milestone 1
 
-* You will need to tear down at least one of the VMs prior to this assignment because we will need the master to be a m1.medium machine. On Chameleon, they allow you to resize it. I have tried this and it worked. So my suggestion is to resize say VM2 to m1.medium rather than having to terminate and recreate both VMs.
+* You will need to tear down at least one of the VMs prior to this assignment because we will need the master to be a m1.medium machine. 
+   * Done.
 
 * Reuse and extend the playbooks to install all the necessary underlying packages you need to get Kubernetes work.
-    Done. Playbook can be found [here](https://github.com/parishwolfe/5287-A2/blob/main/Ansible_Kubernetes/tasks/install_kubernetes.yaml) and [here](https://github.com/parishwolfe/5287-A2/blob/main/Ansible_Kubernetes/playbook_create_and_provision.yml).
+   * Done. Playbook can be found [here](https://github.com/parishwolfe/5287-A2/blob/main/Ansible_Kubernetes/tasks/install_kubernetes.yaml) and [here](https://github.com/parishwolfe/5287-A2/blob/main/Ansible_Kubernetes/playbook_create_and_provision.yml).
 * Now do this manually for milestone 1: 
     * Log into VM2 (master) and run the kubeadm command on master to create a cluster
         Done. 
