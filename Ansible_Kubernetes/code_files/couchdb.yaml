@@ -11,7 +11,7 @@ spec:
     - protocol: TCP
       port: 5984
       targetPort: 5984
-      nodePort: 30010
+      nodePort: 30009
       name: http
 
 ---
