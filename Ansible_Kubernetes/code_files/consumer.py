@@ -39,7 +39,7 @@ couchdb_database = os.getenv("COUCHDB_DATABASE")
 couchdb_host = os.getenv("COUCHDB_HOST")
 
 # Connect to CouchDB
-couch_db = couchdb.Server(f"http://{couchdb_username}:{couchdb_password}@{couchdb_host}:5984/")
+couch_db = couchdb.Server(f"http://{couchdb_username}:{couchdb_password}@{couchdb_host}:30009/")
 
 # Create Database - or access if already created
 
