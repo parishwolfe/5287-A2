@@ -41,17 +41,17 @@ kind: Deployment
 metadata:
   name: kafka-b0-deployment
   labels:
-    app: kafka
+    app: kafka0
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka
+      app: kafka0
       brokerId: "0"
   template:
     metadata:
       labels:
-        app: kafka
+        app: kafka0
         brokerId: "0"
     spec:
       # Wait for zookeeper to start up first
@@ -102,17 +102,17 @@ kind: Deployment
 metadata:
   name: kafka-b1-deployment
   labels:
-    app: kafka
+    app: kafka1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka
+      app: kafka1
       brokerId: "1"
   template:
     metadata:
       labels:
-        app: kafka
+        app: kafka1
         brokerId: "1"
     spec:
       initContainers:
