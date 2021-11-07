@@ -3,38 +3,39 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zookeeper-deployment
-  labels:
-    app: zookeeper
+  # labels:
+  #   app: zookeeper
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: zookeeper
+  # replicas: 1
+  # selector:
+  #   matchLabels:
+  #     app: zookeeper
   template:
     metadata:
       labels:
         app: zookeeper
     spec:
+      hostname: zookeeper-host
       containers:
       - name: zookeeper
         image: bitnami/zookeeper
         ports:
         - containerPort: 2181
-          name: client
+        #   name: client
         - containerPort: 2888
-          name: server
+        #   name: server
         - containerPort: 3888
-          name: leader-election
+        #   name: leader-election
         env:
         - name: ALLOW_ANONYMOUS_LOGIN
           value: "yes"
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "0.5"
-          limits:
-            memory: "1Gi"
-            cpu: "0.6"
+        # resources:
+        #   requests:
+        #     memory: "1Gi"
+        #     cpu: "0.5"
+        #   limits:
+        #     memory: "1Gi"
+        #     cpu: "0.6"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -43,11 +44,11 @@ metadata:
   labels:
     app: kafka
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: kafka
-      brokerId: "0"
+  # replicas: 1
+  # selector:
+  #   matchLabels:
+  #     app: kafka
+  #     brokerId: "0"
   template:
     metadata:
       labels:

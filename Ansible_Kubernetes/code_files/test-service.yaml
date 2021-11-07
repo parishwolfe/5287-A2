@@ -10,7 +10,7 @@ spec:
     - protocol: TCP
       port: 2181
       targetPort: 2181
-      name: client
+      name: zookeeper comms
 ---
 apiVersion: v1
 kind: Service
