@@ -20,8 +20,9 @@ import datetime
 import time  # for sleep
 import json
 import sys
+kafka_servers = [os.getenv("KAFKA1"), os.getenv("KAFKA2")]
 from kafka import KafkaProducer  # producer of events
-import config
+
 
 """kafka-python docs: https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html"""
 import requests
@@ -52,8 +53,7 @@ def weather_request(city: str, api_key: str):
 def main():
     # acquire the producer
     # api_version=(2,13,0)
-    producer = KafkaProducer(bootstrap_servers=config.kafka_servers, api_version=(2,13,0),
-    acks=1)
+    producer = KafkaProducer(bootstrap_servers=kafka_servers, acks=1)
 
     # wait for leader to write to log
     if sys.argv[1] == "ny":
