@@ -26,9 +26,12 @@ import os
 # (you will need to change this to your bootstrap server's IP addr)
 kafka_servers = [os.getenv("KAFKA1"), os.getenv("KAFKA2")]
 consumer = KafkaConsumer (bootstrap_servers=kafka_servers)
+print(consumer.topics())
 
 # subscribe to topic
 consumer.subscribe(topics=["ny", "chi"])
+
+
 
 # settings for couchdb
 couchdb_username = os.getenv("COUCHDB_USER")
@@ -45,9 +48,10 @@ couchdb_host = os.getenv("COUCHDB_HOST")
 #     db = couch_db.create(couchdb_database)  # newly created
 # except Exception:
 #     db = couch_db[couchdb_database]  # existing
-
+print("starting msg loop")
 for msg in consumer:
     # Desteralize data and print message
+    print(msg)
     msg = json.loads(str(msg.value, "ascii"))
     # Save JSON document to CouchDB
     print(msg)
