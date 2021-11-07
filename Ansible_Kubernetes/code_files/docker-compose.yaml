@@ -6,11 +6,24 @@ services:
     environment:
       - COUCHDB_PASSWORD=password
       - COUCHDB_USER=admin
-      - COUCHDB_CREATE_DATABASES="yes"
+      - COUCHDB_CREATE_DATABASES=yes
     ports:
-      - '5984:5984'
+      - 5984:5984
     volumes:
       - couchdb_data:/bitnami/couchdb
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - 32181:2181
+    networks:
+      - default
+
+
+
 volumes:
   couchdb_data:
     driver: local
+
