@@ -1,16 +1,16 @@
 version: '2'
 services:
-  couchdb:
-    image: docker.io/bitnami/couchdb:3
-    container_name: couchdb
-    environment:
-      - COUCHDB_PASSWORD=password
-      - COUCHDB_USER=admin
-      - COUCHDB_CREATE_DATABASES=yes
-    ports:
-      - 5984:5984
-    volumes:
-      - couchdb_data:/bitnami/couchdb
+  # couchdb:
+  #   image: docker.io/bitnami/couchdb:3
+  #   container_name: couchdb
+  #   environment:
+  #     - COUCHDB_PASSWORD=password
+  #     - COUCHDB_USER=admin
+  #     - COUCHDB_CREATE_DATABASES=yes
+  #   ports:
+  #     - 5984:5984
+  #   volumes:
+  #     - couchdb_data:/bitnami/couchdb
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -31,11 +31,15 @@ services:
       - default
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ADVERTISED_HOST_NAME: kafka1
-      KAFKA_ADVERTISED_PORT: 9092
+      # kafka containers fail w/o KAFKA_ADVERTISED_HOST_NAME, KAFKA_ADVERTISED_PORT
+      #KAFKA_ADVERTISED_HOST_NAME: kafka1
+      #KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092
-      KAFKA_CREATE_TOPICS: "ny:1:1, chi:1:2"
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+      #KAFKA_CREATE_TOPICS: "ny:1:1, chi:1:1"
     depends_on:
       - zookeeper
 
@@ -49,15 +53,19 @@ services:
       - default
     environment:
       KAFKA_BROKER_ID: 0
-      KAFKA_ADVERTISED_HOST_NAME: kafka0
-      KAFKA_ADVERTISED_PORT: 9092
+      #KAFKA_ADVERTISED_HOST_NAME: kafka0
+      #KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka0:9092
-      KAFKA_CREATE_TOPICS: "ny:1:1, chi:1:2"
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL
+      #KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+      #KAFKA_CREATE_TOPICS: "ny:1:1, chi:1:1"
     depends_on:
       - zookeeper
+      - kafka1
 
 
-volumes:
-  couchdb_data:
-    driver: local
+# volumes:
+#   couchdb_data:
+#     driver: local
