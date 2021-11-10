@@ -47,7 +47,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka
+      app: kafka0
       #brokerId: "0"
   template:
     metadata:
