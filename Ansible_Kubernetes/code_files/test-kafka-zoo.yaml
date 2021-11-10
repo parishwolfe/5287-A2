@@ -76,8 +76,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
-          value: "PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL"
+        # - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+        #   value: "PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL"
         - name: KAFKA_LISTENERS
           value: "PLAINTEXT://:9092"
         - name: KAFKA_INTER_BROKER_LISTENER_NAME
@@ -135,8 +135,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
-          value: "PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL"
+        # - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+        #   value: "PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL"
         - name: KAFKA_LISTENERS
           value: "PLAINTEXT://:9092"
         - name: KAFKA_INTER_BROKER_LISTENER_NAME
