@@ -12,23 +12,23 @@ spec:
       targetPort: 2181
       name: zookeeper-communication
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: zookeeper-headless-service
-spec:
-  selector:
-    app: zookeeper
-  clusterIP: None # headless service
-  ports:
-    - protocol: TCP
-      port: 2888
-      targetPort: 2888
-      name: server
-    - protocol: TCP
-      port: 3888
-      targetPort: 3888
-      name: leader-election
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: zookeeper-headless-service
+# spec:
+#   selector:
+#     app: zookeeper
+#   clusterIP: None # headless service
+#   ports:
+#     - protocol: TCP
+#       port: 2888
+#       targetPort: 2888
+#       name: server
+#     - protocol: TCP
+#       port: 3888
+#       targetPort: 3888
+#       name: leader-election
 
 # END
 
