@@ -133,9 +133,7 @@
         msg: "{{ result }}"
 
 - name: "start Kubernetes pods"
-  hosts: localhost
-  connection: local
-  gather_facts: yes
+  hosts: vm2
   tasks:
     - include_tasks: tasks/create_pods.yaml
 ...
