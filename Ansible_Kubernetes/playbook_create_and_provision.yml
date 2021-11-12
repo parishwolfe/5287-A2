@@ -145,12 +145,13 @@
       timeout: 120
     delegate_to: localhost
 
-- name: "start Kubernetes consumer"
+- name: consumer pod
   hosts: vm2
   tasks:
-    - name: create consumer pod
+    - name: start consumer pod
       command:
-      cmd: kubectl apply -f ~/5287-A2/Ansible_Kubernetes/code_files/consumer.yaml
+        cmd: kubectl apply -f ~/5287-A2/Ansible_Kubernetes/code_files/consumer.yaml
+
 ...
 
 
