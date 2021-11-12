@@ -136,6 +136,21 @@
   hosts: vm2
   tasks:
     - include_tasks: tasks/create_pods.yaml
+
+- name: wait for spin up
+  hosts: localhost
+  tasks:
+  - name: wait
+    wait_for:
+      timeout: 120
+    delegate_to: localhost
+
+- name: "start Kubernetes consumer"
+  hosts: vm2
+  tasks:
+    - name: create consumer pod
+      command:
+      cmd: kubectl apply -f ~/5287-A2/Ansible_Kubernetes/code_files/consumer.yaml
 ...
 
 

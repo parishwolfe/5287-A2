@@ -11,6 +11,4 @@
   command:
     cmd: kubectl apply -f ~/5287-A2/Ansible_Kubernetes/kafka_files/kafka_deployment.yaml
 
-- name: create consumer pod
-  command:
-    cmd: kubectl apply -f ~/5287-A2/Ansible_Kubernetes/code_files/consumer.yaml
+
