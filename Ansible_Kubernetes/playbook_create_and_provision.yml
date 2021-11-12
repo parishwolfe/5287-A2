@@ -137,7 +137,7 @@
   connection: local
   gather_facts: yes
   tasks:
-    - include_tasks: tasks/deployment.yaml
+    - include_tasks: tasks/create_pods.yaml
 ...
 
 

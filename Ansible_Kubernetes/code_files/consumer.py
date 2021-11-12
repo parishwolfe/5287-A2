@@ -24,7 +24,7 @@ import os
 
 # acquire the consumer
 # (you will need to change this to your bootstrap server's IP addr)
-kafka_servers = [os.getenv("KAFKA1"), os.getenv("KAFKA2")]
+kafka_servers = [os.getenv("KAFKA0"), os.getenv("KAFKA1")]
 consumer = KafkaConsumer (bootstrap_servers=kafka_servers)
 print(consumer.topics())
 
@@ -39,15 +39,16 @@ couchdb_password = os.getenv("COUCHDB_PASSWORD")
 couchdb_database = os.getenv("COUCHDB_DATABASE")
 couchdb_host = os.getenv("COUCHDB_HOST")
 
+
 # Connect to CouchDB
-#couch_db = couchdb.Server(f"http://{couchdb_username}:{couchdb_password}@{couchdb_host}:30009/")
+couch_db = couchdb.Server(f"http://{couchdb_username}:{couchdb_password}@{couchdb_host}:30009/")
 
 # Create Database - or access if already created
 
-# try:
-#     db = couch_db.create(couchdb_database)  # newly created
-# except Exception:
-#     db = couch_db[couchdb_database]  # existing
+try:
+    db = couch_db.create(couchdb_database)  # newly created
+except Exception:
+    db = couch_db[couchdb_database]  # existing
 print("starting msg loop")
 for msg in consumer:
     # Desteralize data and print message
@@ -55,7 +56,7 @@ for msg in consumer:
     msg = json.loads(str(msg.value, "ascii"))
     # Save JSON document to CouchDB
     print(msg)
-    #db.save(msg)
+    db.save(msg)
 
 # we are done. As such, we are not going to get here as the above loop
 # is a forever loop.

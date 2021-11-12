@@ -1,0 +1,20 @@
+
+- name: Start couchdb pod
+  command:
+    chdir: "~/5287-A2/Ansible_Kubernetes/couchdb_files/"
+    cmd: kubectl apply -f couchdb.yaml
+
+- name: Start services kafka, zookeeper
+  command:
+    chdir: "~/5287-A2/Ansible_Kubernetes/kafka_files/"
+    cmd: kubectl apply -f kafka_service.yaml
+
+- name: Create deployments kafka, zookeeper
+  command:
+    chdir: "~/5287-A2/Ansible_Kubernetes/kafka_files/"
+    cmd: kubectl apply -f kafka_deployment.yaml
+
+- name: create consumer pod
+  command:
+  chdir: "~/5287-A2/Ansible_Kubernetes/code_files/"
+  cmd: kubectl apply -f consumer.yaml
