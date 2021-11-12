@@ -37,7 +37,7 @@ spec:
           ports:
             - containerPort: 9092
             - containerPort: 5984
-            - containerport: 30009
+            - containerPort: 30009
           env:
             - name: KAFKA0
               value: 129.114.26.158:30008
