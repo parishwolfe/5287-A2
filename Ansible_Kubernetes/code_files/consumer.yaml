@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: consumer
-          image: parishwolfe/cloudclass
+          image: parishwolfe/cloud_class:latest
           ports:
             - containerPort: 9092
             - containerPort: 5984
