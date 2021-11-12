@@ -49,4 +49,6 @@ spec:
               value: password
             - name: COUCHDB_HOST
               value: 129.114.26.158
+            - name: COUCHDB_DATABASE
+              value: cloud_class
 
