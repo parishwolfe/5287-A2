@@ -9,12 +9,11 @@ spec:
     app: consumer
   ports:
     - name: couchdb
-      port: 5984
-      targetPort: 5984
-    - name: kafka0
-      port: 30007
-    - name: kafka1
-      port: 30008
+      port: 30009
+    - name: kafka
+      port: 9092
+      targetPort: 9092
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -38,6 +37,7 @@ spec:
           ports:
             - containerPort: 9092
             - containerPort: 5984
+            - containerport: 30009
           env:
             - name: KAFKA0
               value: 129.114.26.158:30008
@@ -48,5 +48,5 @@ spec:
             - name: COUCHDB_PASSWORD
               value: password
             - name: COUCHDB_HOST
-              value: couchdb
+              value: 129.114.26.158
 
