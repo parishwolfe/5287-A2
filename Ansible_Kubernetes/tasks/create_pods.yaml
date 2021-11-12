@@ -16,5 +16,5 @@
 
 - name: create consumer pod
   command:
-  chdir: "~/5287-A2/Ansible_Kubernetes/code_files/"
-  cmd: kubectl apply -f consumer.yaml
+    chdir: "~/5287-A2/Ansible_Kubernetes/code_files/"
+    cmd: kubectl apply -f consumer.yaml
