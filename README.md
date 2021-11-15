@@ -1,3 +1,35 @@
+# Assignment 3 - CS5287
+
+## Milestone 3
+Video link: [https://youtu.be/LUQjRidzu3w](https://youtu.be/LUQjRidzu3w)  
+You can run this code by downloading the clouds.yaml from CC and placing it in the `Ansible_Kubernetes/` directory.  
+After this, you must install ansible on your local machine along with the openshift ansible galaxy package.  
+Then run `ansible-playbook --inventory MyInventory playbook_create_and_provision.yml` and wait for 20 minutes.  
+Verificaiton commands include running `python3 producer.py ny` or `python3 producer.py chi` then logging into the database and checking if the document count has increased. 
+The video shows the correctness  
+teamwork was an even split 50:50  
+We spent hours and hours on making this system work and the effort expended on our part was enormous.  
+see video link for final item. 
+
+
+
+
+## Milestone 2
+Video link: [https://youtu.be/LUQjRidzu3w](https://youtu.be/LUQjRidzu3w)
+see above for `"README file explaining how to run the code"`
+
+
+## Milestone 1
+Video link: [https://youtu.be/LUQjRidzu3w](https://youtu.be/LUQjRidzu3w)
+see above for `"README file explaining how to run the code"`
+
+
+
+
+
+
+
+
 # Assignment 2 - CS5287
 
 # Milestone 1
