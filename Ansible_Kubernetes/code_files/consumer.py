@@ -29,7 +29,7 @@ consumer = KafkaConsumer (bootstrap_servers=kafka_servers)
 print(consumer.topics())
 
 # subscribe to topic
-consumer.subscribe(topics=["ny", "chi"])
+consumer.subscribe(topics=["chunks"])
 
 
 
