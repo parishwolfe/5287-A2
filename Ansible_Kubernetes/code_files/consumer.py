@@ -18,6 +18,7 @@ import sys
 import json
 import couchdb
 import os
+import requests
 
 # We can make this more sophisticated/elegant but for now it is just
 # hardcoded to the setup I have on my local VMs
@@ -25,11 +26,12 @@ import os
 # acquire the consumer
 # (you will need to change this to your bootstrap server's IP addr)
 kafka_servers = [os.getenv("KAFKA0"), os.getenv("KAFKA1")]
-consumer = KafkaConsumer (bootstrap_servers=kafka_servers)
+consumer = KafkaConsumer (bootstrap_servers=kafka_servers,
+                          value_deserializer=lambda m: json.loads(m.decode('UTF-8')) )
 print(consumer.topics())
 
 # subscribe to topic
-consumer.subscribe(topics=["chunks"])
+consumer.subscribe(topics=["ny"])
 
 
 
@@ -42,6 +44,7 @@ couchdb_host = os.getenv("COUCHDB_HOST")
 
 # Connect to CouchDB
 couch_db = couchdb.Server(f"http://{couchdb_username}:{couchdb_password}@{couchdb_host}:30009/")
+dbs = requests.get(f'http://{couchdb_username}:{couchdb_password}@{couchdb_host}:30009/_all_dbs')
 
 # Create Database - or access if already created
 
@@ -51,12 +54,13 @@ except Exception:
     db = couch_db[couchdb_database]  # existing
 print("starting msg loop")
 for msg in consumer:
+    url = f'http://{couchdb_username}:{couchdb_password}@{couchdb_host}:30009/{couchdb_database}/_bulk_docs'
     # Desteralize data and print message
-    print(msg)
-    msg = json.loads(str(msg.value, "ascii"))
+    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    docs = json.dumps({'docs': msg.value})
     # Save JSON document to CouchDB
-    print(msg)
-    db.save(msg)
+    res2 = requests.post(url, headers=headers, data=docs)
+    print('Received data', res2.content)
 
 # we are done. As such, we are not going to get here as the above loop
 # is a forever loop.
