@@ -14,10 +14,14 @@
 
 ### To run 
 
-Look at instructions for Assignment 3 at https://github.com/parishwolfe/5287-A2/blob/main/README-A3.md. The code will be run the same way. 
+Look at instructions for Assignment 3 at https://github.com/parishwolfe/5287-A2/blob/main/README-A3.md. The code will be run the same way. The producers are now taking data from a csv file instead of using an API request. 
 
 ### Distrubition of work 
 
 Both team memebers contributed equally. We met over zoom continously to stay in sync. 
+
+### Demo 
+
+A demo for this milestone can be found here: https://youtu.be/ChRZrBEsFC8
 
 
