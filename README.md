@@ -2,7 +2,7 @@
 
 ## Assignment 2 
 
-ReadMe found [here](https://github.com/parishwolfe/5287-A2/blob/main/README-A1.md) 
+ReadMe found [here](https://github.com/parishwolfe/5287-A2/blob/main/README-A2.md) 
 
 ## Assignment 3 
 
