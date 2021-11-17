@@ -12,4 +12,12 @@
 * Modify the consumer such that it can now take these incoming records and dump them into CouchDBso that CouchDB now has a complete batch of the data ready and available for Spark to use. 
   * Done. 
 
+### To run 
+
+Look at instructions for Assignment 3 at https://github.com/parishwolfe/5287-A2/blob/main/README-A3.md. The code will be run the same way. 
+
+### Distrubition of work 
+
+Both team memebers contributed equally. We met over zoom continously to stay in sync. 
+
 
