@@ -20,12 +20,16 @@ import datetime
 import time  # for sleep
 import json
 import sys
+import pandas as pd
+
 kafka_servers = [os.getenv("KAFKA1"), os.getenv("KAFKA2")]
 from kafka import KafkaProducer  # producer of events
 
 
 """kafka-python docs: https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html"""
 import requests
+import csv
+from kafka.errors import KafkaTimeoutError
 
 
 # GLOBAL FUNCTIONS
@@ -49,51 +53,31 @@ def weather_request(city: str, api_key: str):
     else:
         return None
 
-
 def main():
     # acquire the producer
     # api_version=(2,13,0)
     producer = KafkaProducer(bootstrap_servers=kafka_servers, acks=1)
 
     # wait for leader to write to log
-    if sys.argv[1] == "ny":
-        city = "New York"
-        topic_ = "ny"
-    elif sys.argv[1] == "chi":
-        city = "Chicago"
-        topic_ = "chi"
+    producer_id = sys.argv[1]
+    topic = "ny"
+
+    if producer_id == '1':
+        filename = 'energy_pt1.csv'
     else:
-        city = sys.argv[1]
-        topic_ = sys.argv[1]
+        filename = 'energy_pt2.csv'
 
-    # say we send the contents 100 times after a sleep of 1 sec in between
-    api_key = get_api_key()
-    for i in range(100):
+    index = 1
+    header_list = ['id', 'timestamp', 'value', 'property', 'plug_id', 'household_id', 'house_id']
+    for chunk in pd.read_csv(filename, names=header_list, skiprows=0, chunksize=1000):
+        print('Batch sent:', index)
+        print(chunk.to_json(orient="records"))
+        producer.send(topic=topic, value=bytes(chunk.to_json(orient="records"),'UTF-8'))
+        producer.flush()
+        index += 1
+        time.sleep(1)
 
-        output = weather_request(city, api_key)
-
-
-        if output != None:
-            # send the output to the Kafka topic
-            message = {'City': output['name'],
-                       'Description': output['weather'][0]['description'],
-                       'Temperature': output['main']['temp'],
-                       'ts': datetime.datetime.now().isoformat()}
-            print(message)
-            # steralize data
-            message = bytes(json.dumps(message), 'ascii')
-            producer.send(topic=topic_, value=message)
-            print("sent")
-            producer.flush()  # try to empty the sending buffer
-            print("flush")
-            # sleep a second
-            time.sleep(5)  # changed to 5 seconds for api limit
-        else:
-            raise Exception("Error in send")
-
-    # we are done
     producer.close()
-
 
 if __name__ == "__main__":
     main()
