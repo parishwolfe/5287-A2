@@ -27,7 +27,7 @@ spec:                     # This is the specification
         kubernetes.io/hostname: kubemaster
       containers:
         - name: spark-driver       # used to name container
-          image: 129.114.25.80:5000/my-spark:latest   # this is the image in private registry
+          image: parishwolfe/cloud_spark:latest   # this is the image in private registry
           imagePullPolicy: Always  # This forces the node to pull the image
           env:
             - name: SPARK_LOCAL_IP
@@ -35,7 +35,7 @@ spec:                     # This is the specification
             # the SPARK_HOME env set in docker image is not accessible for the command line
             # below. So had to set it here.
             - name: SPARK_HOME  
-              value: "/spark-3.1.1-bin-hadoop3.2"
+              value: "/spark-3.1.2-bin-hadoop3.2"
 
           ports:            # Spark driver port
             - containerPort: 4040  # the dashboard
