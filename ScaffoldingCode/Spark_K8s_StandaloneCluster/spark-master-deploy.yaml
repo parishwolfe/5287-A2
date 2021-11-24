@@ -33,8 +33,8 @@ spec:                     # This is the specification
             - containerPort: 7077  # inside it listens on this port
             - containerPort: 8080  # the dashboard
           env:  # environment variables to pass
-#            - name: SPARK_MASTER_HOST
-#              value: "129.114.25.80"  # floating IP of your spark master machine for outside world
+            - name: SPARK_MASTER_HOST
+              value: "129.114.26.158"  # floating IP of your spark master machine for outside world
             - name: SPARK_LOCAL_IP
               value: "spark-master-host"  # floating IP of your spark master machine for outside world
             - name: SPARK_NO_DAEMONIZE # so that the master runs in foreground
