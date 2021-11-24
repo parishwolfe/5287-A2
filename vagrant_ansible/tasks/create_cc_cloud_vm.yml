@@ -13,7 +13,7 @@
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
     key_name: Team9
     #timeout: 200
-    flavor: m1.medium
+    flavor: m1.large
     security_groups:
       - "default"
       - "HTTP_HTTPS_INGRESS_EGRESS"
@@ -34,7 +34,7 @@
     image: cc7a1d9a-7501-4935-b171-bb881a7d767d
     key_name: Team9
     #timeout: 200
-    flavor: m1.small
+    flavor: m1.large
     security_groups:
       - "default"
       - "HTTP_HTTPS_INGRESS_EGRESS"

@@ -22,10 +22,10 @@ spec:
       protocol: TCP  # this is default
       port: 7077
       targetPort: 7077   # if not specified, is the same as port
-      #nodePort: 30007    # externally as 30000
+      nodePort: 30010    # externally as 30000
     - name: spark-gui-port   # not really needed
       protocol: TCP  # this is default
       port: 8080
       targetPort: 8080   # if not specified, is the same as port
-      #nodePort: 30008    # externally as 30000
+      nodePort: 30011    # externally as 30000
 ...

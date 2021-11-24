@@ -78,6 +78,9 @@
     update_cache: yes
     state: present
 
+- name: swap off
+  become: yes
+  command: swapoff -a
 
 - name: update docker config
   become: yes
