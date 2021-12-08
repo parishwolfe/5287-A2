@@ -63,7 +63,7 @@ def main():
     topic = "ny"
 
     if producer_id == '1':
-        filename = 'energy_pt1.csv'
+        filename = 'energy_large.csv'
     else:
         filename = 'energy_pt2.csv'
 
