@@ -12,7 +12,7 @@ def get_documents_cdb():
     df = pd.DataFrame(data)
     return df
 
-def mapReduce():
+def mapReduce(dataframe):
     time_results = []
     for test in MR:
         print('10 iterations of MapReduce with M =', test[0], 'and R =', test[1])
