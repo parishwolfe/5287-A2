@@ -63,9 +63,9 @@ def main():
     topic = "ny"
 
     if producer_id == '1':
-        filename = 'energy_large.csv'
+        filename = 'energy_1.csv'
     else:
-        filename = 'energy_pt2.csv'
+        filename = 'energy_2.csv'
 
     index = 1
     header_list = ['id', 'timestamp', 'value', 'property', 'plug_id', 'household_id', 'house_id']
