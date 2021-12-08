@@ -94,7 +94,7 @@ after a short pause,
 
 (5) Exec into the driver pod using its displayed id
 
-    kubectl exec -it <driver pod full instance id> -- /usr/bin/bash
+    kubectl exec -it spark-driver-deploy-585b8d5655-n2mjq -- /usr/bin/bash
 
 once inside, then issue the following long command to run the Wordcount example
 (a backslash shown below indicates continuation of the line)
