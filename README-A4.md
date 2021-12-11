@@ -53,7 +53,7 @@ Both team memebers contributed equally. We met over zoom continously to stay in 
 
 ### demo
 
-[screenshot](https://github.com/parishwolfe/5287-A2/blob/main/ScaffoldingCode/Spark_K8s_StandaloneCluster/speed.png)
+![screenshot](https://github.com/parishwolfe/5287-A2/blob/main/ScaffoldingCode/Spark_K8s_StandaloneCluster/speed.png)
 
 Video demonstration can be found here: 
 https://www.youtube.com/watch?v=Exd7ETlHY6Y
