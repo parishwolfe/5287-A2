@@ -20,9 +20,9 @@ def mapReduce(dataframe):
         while i <= iterations:
             spark = SparkSession \
                 .builder \
-                .appName("AverageTest") \
-                .config('spark.default.parallelism', test[0]) \
-                .config('spark.sql.shuffle.partitions', test[1]) \
+                .appName("AverageTest")\
+                .config('spark.default.parallelism', test[0])\
+                .config('spark.sql.shuffle.partitions', test[1])\
                 .getOrCreate()
             df = spark.createDataFrame(dataframe)
             start = time.perf_counter()
