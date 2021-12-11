@@ -37,15 +37,15 @@ def mapReduce(dataframe):
             spark.stop()
 
     print("Finished MapReduce for all iterations")
-    print("The timings for the tests are as follows")
-    print(reduce_result)
+    print("[MapWorkers, ReduceWorkers, IterationNumber, Time]")
+    print(time_results)
 
     return reduced
 
 
 if __name__ == "__main__":
-    MR = [[10, 2], [50, 5], [100, 10]]
-    iterations = 10
+    MR = [[10, 2]] #, [50, 5], [100, 10]]
+    iterations = 1
 
     couchdb_username = os.getenv("COUCHDB_USER")
     couchdb_password = os.getenv("COUCHDB_PASSWORD")
@@ -63,8 +63,16 @@ if __name__ == "__main__":
     #dataframe = pd.read_csv('/energy_large.csv')
 
     reduce_result = mapReduce(dataframe)
+    #print(reduce_result)
 
-    # see what format reduce result is above ^
+
+    # dump results back to database
+    for i in reduce_result:
+        docs = json.dumps({'docs': i})
+        couchdb_database = MapReduceResults
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        url = f'http://{couchdb_username}:{couchdb_password}@{couchdb_host}:30009/{couchdb_database}/_bulk_docs'
+        req = requests.post(url, headers=headers, data=docs)
 
 
 
