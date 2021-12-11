@@ -59,9 +59,13 @@ if __name__ == "__main__":
 
     dataframe = get_documents_cdb()
 
+    #import dataframe from csv
+    #dataframe = pd.read_csv('/energy_large.csv')
+
     reduce_result = mapReduce(dataframe)
 
     # see what format reduce result is above ^
+
 
 
 
